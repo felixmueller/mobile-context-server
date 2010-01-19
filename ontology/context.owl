@@ -1,0 +1,345 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY www "http://www.mobileContext.de/" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY owl2xml "http://www.w3.org/2006/12/owl2-xml#" >
+    <!ENTITY context "http://www.mobileContext.de/context#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="&www;context#"
+     xml:base="&www;context"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
+     xmlns:context="&www;context#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:www="http://www.mobileContext.de/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about=""/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <owl:AnnotationProperty rdf:about="#hasSparql"/>
+    <owl:AnnotationProperty rdf:about="#hasVariable"/>
+    <owl:AnnotationProperty rdf:about="#hasOperator"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.mobileContext.de/context#belongsToUser -->
+
+    <owl:ObjectProperty rdf:about="#belongsToUser">
+        <rdfs:domain rdf:resource="#Context"/>
+        <rdfs:range rdf:resource="#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.mobileContext.de/context#hasSubContext -->
+
+    <owl:ObjectProperty rdf:about="#hasSubContext">
+        <rdfs:domain rdf:resource="#Context"/>
+        <rdfs:range rdf:resource="#Context"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.mobileContext.de/context#hasAltitudeMax -->
+
+    <owl:DatatypeProperty rdf:about="#hasAltitudeMax">
+        <hasVariable>altitude</hasVariable>
+        <hasOperator>&gt;</hasOperator>
+        <hasSparql>altitudeMax</hasSparql>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.mobileContext.de/context#hasAltitudeMin -->
+
+    <owl:DatatypeProperty rdf:about="#hasAltitudeMin">
+        <hasVariable>altitude</hasVariable>
+        <hasSparql>altitudeMin</hasSparql>
+        <hasOperator>&lt;</hasOperator>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.mobileContext.de/context#hasDateMax -->
+
+    <owl:DatatypeProperty rdf:about="#hasDateMax">
+        <hasVariable>time</hasVariable>
+        <hasOperator>&gt;</hasOperator>
+        <hasSparql>dateMax</hasSparql>
+        <rdfs:range rdf:resource="&xsd;time"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.mobileContext.de/context#hasDateMin -->
+
+    <owl:DatatypeProperty rdf:about="#hasDateMin">
+        <hasOperator>&lt;</hasOperator>
+        <hasVariable>time</hasVariable>
+        <hasSparql>dateMin</hasSparql>
+        <rdfs:range rdf:resource="&xsd;time"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.mobileContext.de/context#hasLatitudeMax -->
+
+    <owl:DatatypeProperty rdf:about="#hasLatitudeMax">
+        <hasVariable>latitude</hasVariable>
+        <hasOperator>&gt;</hasOperator>
+        <hasSparql>latitudeMax</hasSparql>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.mobileContext.de/context#hasLatitudeMin -->
+
+    <owl:DatatypeProperty rdf:about="#hasLatitudeMin">
+        <hasVariable>latitude</hasVariable>
+        <hasSparql>latitudeMin</hasSparql>
+        <hasOperator>&lt;</hasOperator>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.mobileContext.de/context#hasLongitudeMax -->
+
+    <owl:DatatypeProperty rdf:about="#hasLongitudeMax">
+        <hasVariable>longitude</hasVariable>
+        <hasOperator>&gt;</hasOperator>
+        <hasSparql>longitudeMax</hasSparql>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.mobileContext.de/context#hasLongitudeMin -->
+
+    <owl:DatatypeProperty rdf:about="#hasLongitudeMin">
+        <hasVariable>longitude</hasVariable>
+        <hasOperator>&lt;</hasOperator>
+        <hasSparql>longitudeMin</hasSparql>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.mobileContext.de/context#hasSpeedMax -->
+
+    <owl:DatatypeProperty rdf:about="#hasSpeedMax">
+        <hasSparql>speedMax</hasSparql>
+        <hasVariable>speed</hasVariable>
+        <hasOperator>&gt;</hasOperator>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.mobileContext.de/context#hasSpeedMin -->
+
+    <owl:DatatypeProperty rdf:about="#hasSpeedMin">
+        <hasSparql>speedMin</hasSparql>
+        <hasOperator>&lt;</hasOperator>
+        <hasVariable>speed</hasVariable>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.mobileContext.de/context#hasWeekday -->
+
+    <owl:DatatypeProperty rdf:about="#hasWeekday">
+        <hasVariable>weekday</hasVariable>
+        <hasOperator>=</hasOperator>
+        <hasSparql>weekday</hasSparql>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.mobileContext.de/context#hasWlanName -->
+
+    <owl:DatatypeProperty rdf:about="#hasWlanName">
+        <hasVariable>wlanName</hasVariable>
+        <hasSparql>wlanName</hasSparql>
+        <hasOperator>=</hasOperator>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.mobileContext.de/context#Context -->
+
+    <owl:Class rdf:about="#Context"/>
+    
+
+
+    <!-- http://www.mobileContext.de/context#LocationContext -->
+
+    <owl:Class rdf:about="#LocationContext">
+        <rdfs:subClassOf rdf:resource="#Context"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.mobileContext.de/context#OrientationContext -->
+
+    <owl:Class rdf:about="#OrientationContext">
+        <rdfs:subClassOf rdf:resource="#Context"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.mobileContext.de/context#Person -->
+
+    <owl:Class rdf:about="#Person"/>
+    
+
+
+    <!-- http://www.mobileContext.de/context#TimeContext -->
+
+    <owl:Class rdf:about="#TimeContext">
+        <rdfs:subClassOf rdf:resource="#Context"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.mobileContext.de/context#User -->
+
+    <owl:Class rdf:about="#User">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.mobileContext.de/context#FelixMueller -->
+
+    <User rdf:about="#FelixMueller">
+        <rdfs:label>Felix M&#252;ller</rdfs:label>
+    </User>
+    
+
+
+    <!-- http://www.mobileContext.de/context#HomeFelixMueller -->
+
+    <LocationContext rdf:about="#HomeFelixMueller">
+        <rdfs:label>Home</rdfs:label>
+        <hasLongitudeMin rdf:datatype="&xsd;float">60</hasLongitudeMin>
+        <hasLatitudeMin rdf:datatype="&xsd;float">60</hasLatitudeMin>
+        <hasLatitudeMax rdf:datatype="&xsd;float">62</hasLatitudeMax>
+        <hasLongitudeMax rdf:datatype="&xsd;float">62</hasLongitudeMax>
+        <belongsToUser rdf:resource="#FelixMueller"/>
+    </LocationContext>
+    
+
+
+    <!-- http://www.mobileContext.de/context#MorningFelixMueller -->
+
+    <TimeContext rdf:about="#MorningFelixMueller">
+        <rdfs:label>Morgen</rdfs:label>
+        <hasDateMax>09:00:00</hasDateMax>
+        <hasDateMin>06:00:00</hasDateMin>
+        <belongsToUser rdf:resource="#FelixMueller"/>
+    </TimeContext>
+    
+
+
+    <!-- http://www.mobileContext.de/context#MorningStephanPavlovic -->
+
+    <TimeContext rdf:about="#MorningStephanPavlovic">
+        <rdfs:label>Morning</rdfs:label>
+        <hasDateMin>07:00:00</hasDateMin>
+        <hasDateMax>11:00:00</hasDateMax>
+        <belongsToUser rdf:resource="#StephanPavlovic"/>
+    </TimeContext>
+    
+
+
+    <!-- http://www.mobileContext.de/context#StephanPavlovic -->
+
+    <User rdf:about="#StephanPavlovic">
+        <rdfs:label
+            >Stephan Pavlovic</rdfs:label>
+    </User>
+    
+
+
+    <!-- http://www.mobileContext.de/context#WorkFelixMueller -->
+
+    <LocationContext rdf:about="#WorkFelixMueller">
+        <rdfs:label>Work</rdfs:label>
+        <hasDateMin rdf:datatype="&xsd;time">07:00:00</hasDateMin>
+        <hasWlanName rdf:datatype="&xsd;string">work</hasWlanName>
+        <belongsToUser rdf:resource="#FelixMueller"/>
+    </LocationContext>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 2.2.1.1101) http://owlapi.sourceforge.net -->
+
