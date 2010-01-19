@@ -18,4 +18,5 @@ API Documentation
 coming soon ...
 
 
-Copyright (c) 2010 Felix Mueller, released under the [MIT license](http://github.com/flxmllr/mobile-context-server/)
+
+Copyright (c) 2010 Felix Mueller, released under the [MIT license](http://github.com/flxmllr/mobile-context-server/blob/master/MIT-LICENSE)
