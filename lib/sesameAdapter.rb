@@ -1,10 +1,7 @@
 module SesameAdapter
   
-  #@url="http://mims03.gm.fh-koeln.de:8282/openrdf-sesame/repositories/channelthing"
-  
-  #repo = "mobileContext"
-  @url="http://mims03.gm.fh-koeln.de:8282/openrdf-sesame/repositories/contextService"
-  #@url="http://localhost:8080/openrdf-sesame/repositories/#{repo}"
+  repo = "contextService"
+  @url="http://mims03.gm.fh-koeln.de:8282/openrdf-sesame/repositories/#{repo}"
 
   DATA_TYPES = {
     :XML => "application/sparql-results+xml",
