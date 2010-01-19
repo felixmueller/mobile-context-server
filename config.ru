@@ -1,3 +1,3 @@
-require "test"
+require "myapp"
 
 run Sinatra::Application
