@@ -1,4 +1,6 @@
 class SparqlFactory
+
+  #namespaces für sparql abfragen
   @prefix="PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
   PREFIX owl2xml:<http://www.w3.org/2006/12/owl2-xml#>
   PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
@@ -7,15 +9,29 @@ class SparqlFactory
   PREFIX context:<http://www.mobileContext.de/context#>
   PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
   
+  # hauptmethode
   def self.getContext(user,contextTyp,attributes)
+    # 1) prädikate ermitteln (alle, die zu user und dem typ gehören!)
     predicateQuery = getPredicates(user,contextTyp,attributes.keys)
-    result = SesameAdapter.query("#{@prefix} #{predicateQuery}")
-    result = Parser::Base.predicates(result)
-    return [] if result.length==0 
-    contextQuery = createContextQuery(user,contextTyp,result,attributes)
+    # predicates: json-hash:
+    predicates = SesameAdapter.query("#{@prefix} #{predicateQuery}")
+    # parsen nach ruby hash:
+    predicates = Parser::Base.predicates(predicates)
+    
+    # 2) kontext ermitteln (alle zu user und typ) 
+    contextQuery = createContextQuery(user,contextTyp,predicates,attributes)   
     result = SesameAdapter.query("#{@prefix} #{contextQuery}")
     result = Parser::Base.contextName(result)
+    # 3) filtern nach bedingungen (regeln)
+    result = Helper::Base.filterResults(result,attributes,predicates)
   end
+  
+  def self.getAllContexts(user)
+    query="Select ?contextName ?contextType where {?context context:belongsToUser context:#{user}. ?context rdfs:label ?contextName. ?context rdf:type ?contextTyp. ?contextTyp rdfs:label ?contextType}"
+    result = SesameAdapter.query("#{@prefix} #{query}")
+    result = Parser::Base.parseAllContexts(result)
+  end
+  
   
   def self.getAllPredicates
     result = SesameAdapter.query("#{@prefix} Select distinct ?predicate ?operator ?variable ?sparql ?type where {?s ?predicate ?o. ?predicate rdfs:domain context:Context. ?predicate context:hasOperator ?operator. ?predicate context:hasVariable ?variable. ?predicate context:hasSparql ?sparql. ?predicate rdfs:range ?type.}")
@@ -36,30 +52,12 @@ class SparqlFactory
     result
   end
   
-  def self.createContextQueryAlt(user,contextTyp,predicates,attributes)
-    #TODO: Make Predicates Optional
-    where="?context rdf:type context:#{contextTyp}. ?context rdfs:label ?contextName. ?context context:belongsToUser context:#{user}."
-    filter="FILTER ("
-    predicates.each do |predicate|
-      var =  attributes[predicate["variable"]]
-      typeString = Helper::Base.getTypeString(predicate["type"])
-      where += "?context <#{predicate['predicate']}> ?#{predicate['sparql']}. "
-      filter += "?#{predicate['sparql']} #{predicate['operator']} '#{var}'#{typeString} && "
-    end
-    
-    filter = filter[0..(filter.length-4)]
-    result = "Select ?contextName where {#{where} #{filter})}"
-  end
-  
   def self.createContextQuery(user,contextTyp,predicates,attributes)
-    #TODO: Make Predicates Optional
     where="?context rdf:type context:#{contextTyp}. ?context rdfs:label ?contextName. ?context context:belongsToUser context:#{user}."
-    filter="FILTER ("
     vars=" "
     predicates.each do |predicate|
       var =  attributes[predicate["variable"]]
-      typeString = Helper::Base.getTypeString(predicate["type"])
-      where += " OPTIONAL {?context <#{predicate['predicate']}> ?#{predicate['sparql']}. FILTER (?#{predicate['sparql']} #{predicate['operator']} '#{var}'#{typeString})} "
+      where += " OPTIONAL {?context <#{predicate['predicate']}> ?#{predicate['sparql']}}. "
       vars += "?#{predicate['sparql']} "
     end
     result = "Select ?contextName #{vars} where {#{where}}"

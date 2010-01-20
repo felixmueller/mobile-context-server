@@ -228,9 +228,19 @@
     
 
 
+    <!-- http://www.mobileContext.de/context#DerivedContext -->
+
+    <owl:Class rdf:about="#DerivedContext">
+        <rdfs:label>DerivedContext</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Context"/>
+    </owl:Class>
+    
+
+
     <!-- http://www.mobileContext.de/context#LocationContext -->
 
     <owl:Class rdf:about="#LocationContext">
+        <rdfs:label>LocationContext</rdfs:label>
         <rdfs:subClassOf rdf:resource="#Context"/>
     </owl:Class>
     
@@ -239,6 +249,8 @@
     <!-- http://www.mobileContext.de/context#OrientationContext -->
 
     <owl:Class rdf:about="#OrientationContext">
+        <rdfs:label
+            >OrientationContext</rdfs:label>
         <rdfs:subClassOf rdf:resource="#Context"/>
     </owl:Class>
     
@@ -253,6 +265,7 @@
     <!-- http://www.mobileContext.de/context#TimeContext -->
 
     <owl:Class rdf:about="#TimeContext">
+        <rdfs:label>TimeContext</rdfs:label>
         <rdfs:subClassOf rdf:resource="#Context"/>
     </owl:Class>
     
@@ -289,12 +302,24 @@
 
     <LocationContext rdf:about="#HomeFelixMueller">
         <rdfs:label>Home</rdfs:label>
-        <hasLongitudeMin rdf:datatype="&xsd;float">60</hasLongitudeMin>
-        <hasLatitudeMin rdf:datatype="&xsd;float">60</hasLatitudeMin>
-        <hasLatitudeMax rdf:datatype="&xsd;float">62</hasLatitudeMax>
-        <hasLongitudeMax rdf:datatype="&xsd;float">62</hasLongitudeMax>
+        <hasLatitudeMin rdf:datatype="&xsd;float">50.8</hasLatitudeMin>
+        <hasLatitudeMax rdf:datatype="&xsd;float">51</hasLatitudeMax>
+        <hasLongitudeMin rdf:datatype="&xsd;float">6.8</hasLongitudeMin>
+        <hasLongitudeMax rdf:datatype="&xsd;float">7</hasLongitudeMax>
         <belongsToUser rdf:resource="#FelixMueller"/>
     </LocationContext>
+    
+
+
+    <!-- http://www.mobileContext.de/context#MorningAtWorkFelixMueller -->
+
+    <DerivedContext rdf:about="#MorningAtWorkFelixMueller">
+        <rdfs:label
+            >Ein Morgen auf der Arbeit</rdfs:label>
+        <belongsToUser rdf:resource="#FelixMueller"/>
+        <hasSubContext rdf:resource="#MorningFelixMueller"/>
+        <hasSubContext rdf:resource="#WorkFelixMueller"/>
+    </DerivedContext>
     
 
 
@@ -334,6 +359,8 @@
     <LocationContext rdf:about="#WorkFelixMueller">
         <rdfs:label>Work</rdfs:label>
         <hasDateMin rdf:datatype="&xsd;time">07:00:00</hasDateMin>
+        <hasLongitudeMin rdf:datatype="&xsd;float">50</hasLongitudeMin>
+        <hasLongitudeMax rdf:datatype="&xsd;float">55</hasLongitudeMax>
         <hasWlanName rdf:datatype="&xsd;string">work</hasWlanName>
         <belongsToUser rdf:resource="#FelixMueller"/>
     </LocationContext>

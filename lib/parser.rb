@@ -15,6 +15,18 @@ module Parser
       predicates
     end
     
+    def self.parseAllContexts(json_document)
+      json_document = JSON.parse(json_document)
+      results=[]
+      json_document["results"]["bindings"].each do |binding|
+         contextName = binding["contextName"]["value"]
+         contextType = binding["contextType"]["value"]
+         hash={"contextName"=>contextName,"contextType"=>contextType}
+         results.push hash
+      end
+      results
+    end
+    
     def self.contextName(json_document)
       contexts=[]
       json_document = JSON.parse(json_document)
@@ -36,27 +48,21 @@ module Parser
       validate(contexts)
     end
     
-    def self.parseAllPredicates(json_document)
-      predicates=[]
-      json_document = JSON.parse(json_document)
-      json_document["results"]["bindings"].each do |binding|
-        name = binding["predicate"]["value"]
-        predicates.push name
-      end
-      predicates
-    end
+    # def self.parseAllPredicates(json_document)
+    #   predicates=[]
+    #   json_document = JSON.parse(json_document)
+    #   json_document["results"]["bindings"].each do |binding|
+    #     name = binding["predicate"]["value"]
+    #     predicates.push name
+    #   end
+    #   predicates
+    # end
     
     def self.validate(array)
-      ret=[]
       array.each do |arr|
-        result=true
-        arr.values.each do |value|
-          result=false if value.nil?
-        end
-        ret.push arr unless result==false
+        arr.delete_if {|key, value| value.nil? }
       end
-      ret
-end
+    end
 
   end
 end

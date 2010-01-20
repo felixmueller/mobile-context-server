@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<contexts type="array">
-  <context>
-    <type>LocationContext</type>
-    <value>Home</value>
-  </context>
-  <context>
-    <type>LocationContext</type>
-    <value>Office</value>
-  </context>
-</contexts>
+%contexts{:type => "array"}
+  -if result.length > 0 
+    -result.each do |context|
+      %context
+        %timestamp{:type => "datetime"}=Time.now
+        %type=context["contextType"]
+        %value=context["contextName"]
+  -else 
+    %context
+      %timestamp{:type => "datetime"}=Time.now
+      %type No Context Found
+      %value No ContextType found
