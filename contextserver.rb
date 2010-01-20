@@ -22,3 +22,8 @@ get '/predicates' do
   result = SparqlFactory.getAllPredicates()
   haml :predicates,:locals => {:result => result}
 end
+
+get '/contexts.xml' do
+  result = SparqlFactory.getAllPredicates()
+  haml :contexts,:locals => {:result => result}
+end
