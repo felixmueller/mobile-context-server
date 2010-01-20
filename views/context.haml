@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-%xml
-  %contexts
-    -if result.length > 0 
-      -result.each do |context|
-        %context
-          %timestamp=Time.now
-          %name=context["contextName"]
-    -else 
+%contexts
+  -if result.length > 0 
+    -result.each do |context|
       %context
-        %name
-          No Context found
         %timestamp=Time.now
+        %name=context["contextName"]
+  -else 
+    %context
+      %name
+        No Context found
+      %timestamp=Time.now
