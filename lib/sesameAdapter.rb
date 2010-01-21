@@ -1,6 +1,6 @@
 module SesameAdapter
   
-  repo = "mobileContext"
+  repo = "contextserver"
   @url="http://localhost:8080/openrdf-sesame/repositories/#{repo}"
   #@url="http://mims03.gm.fh-koeln.de:8282/openrdf-sesame/repositories/contextService"
   
