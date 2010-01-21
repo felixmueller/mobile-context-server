@@ -26,8 +26,9 @@ class SparqlFactory
     result = Helper::Base.filterResults(result,attributes,predicates)
   end
   
-  def self.getAllContexts(user)
-    query="Select ?contextName ?contextType where {?context context:belongsToUser context:#{user}. ?context rdfs:label ?contextName. ?context rdf:type ?contextTyp. ?contextTyp rdfs:label ?contextType}"
+  def self.getAllContexts(user,typ)
+    use = "?context context:belongsToUser context:#{user}." unless user.nil?
+    query="Select ?contextName ?contextType where {#{use} ?context rdf:type context:#{typ}. ?context rdfs:label ?contextName. ?context rdf:type ?contextTyp. ?contextTyp rdfs:label ?contextType}"
     result = SesameAdapter.query("#{@prefix} #{query}")
     result = Parser::Base.parseAllContexts(result)
   end
