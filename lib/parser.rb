@@ -36,6 +36,7 @@ module Parser
       end
       json_document["results"]["bindings"].each do |binding|
         context={}
+        context["contextType"] = binding["contextType"]["value"]
         vars.each do |var|
           if binding[var].nil?
             context[var] = nil 

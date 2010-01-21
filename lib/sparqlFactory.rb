@@ -19,7 +19,7 @@ class SparqlFactory
     predicates = Parser::Base.predicates(predicates)
     
     # 2) kontext ermitteln (alle zu user und typ) 
-    contextQuery = createContextQuery(user,contextTyp,predicates,attributes)   
+    contextQuery = createContextQuery(user,contextTyp,predicates,attributes) 
     result = SesameAdapter.query("#{@prefix} #{contextQuery}")
     result = Parser::Base.contextName(result)
     # 3) filtern nach bedingungen (regeln)
@@ -54,13 +54,13 @@ class SparqlFactory
   end
   
   def self.createContextQuery(user,contextTyp,predicates,attributes)
-    where="?context rdf:type context:#{contextTyp}. ?context rdfs:label ?contextName. ?context context:belongsToUser context:#{user}."
+    where="?context rdf:type context:#{contextTyp}. ?context rdf:type ?contextTyp. ?contextTyp rdfs:label ?contextType. ?context rdfs:label ?contextName. ?context context:belongsToUser context:#{user}."
     vars=" "
     predicates.each do |predicate|
       var =  attributes[predicate["variable"]]
       where += " OPTIONAL {?context <#{predicate['predicate']}> ?#{predicate['sparql']}}. "
       vars += "?#{predicate['sparql']} "
     end
-    result = "Select ?contextName #{vars} where {#{where}}"
+    result = "Select ?contextName ?contextType #{vars} where {#{where}}"
   end
 end

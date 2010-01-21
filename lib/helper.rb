@@ -9,7 +9,7 @@ module Helper
         hit=true
         bool=false
         result.each do |k,v|
-          if k!="contextName" 
+          if (k!="contextName" && k!= "contextType")
             if pres[k]['type']!= "http://www.w3.org/2001/XMLSchema#time"
               bool = eval("#{v} #{pres[k]['operator']} #{attributes[pres[k]['variable']]}") 
             else
