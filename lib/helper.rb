@@ -8,8 +8,13 @@ module Helper
       results.each do |result|
         hit=true
         bool=false
+        #### Derived Versuch
+        if result['contextType']=="DerivedContext"
+#          getDerivedContexts(result['context'])
+        end
+        ####
         result.each do |k,v|
-          if (k!="contextName" && k!= "contextType")
+          if (k!="contextName" && k!= "contextType" && k!= "context")
             if pres[k]['type']!= "http://www.w3.org/2001/XMLSchema#time"
               bool = eval("#{v} #{pres[k]['operator']} #{attributes[pres[k]['variable']]}") 
             else
@@ -29,6 +34,10 @@ module Helper
         hash[pre['sparql']] = {"variable"=>pre['variable'],"operator"=>pre['operator'],"type"=>pre['type']} 
       end
       hash
+    end
+    
+    def self.getDerivedContexts(contextUri)
+      result = SparqlFactory.getDerivedContexts(contextUri)
     end
   end
 end

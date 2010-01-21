@@ -9,6 +9,8 @@ class SparqlFactory
   PREFIX context:<http://www.mobileContext.de/context#>
   PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
   
+  @predis=[]
+  @attrs={}
   # hauptmethode
   def self.getContext(user,contextTyp,attributes)
     # 1) prädikate ermitteln (alle, die zu user und dem typ gehören!)
@@ -41,7 +43,7 @@ class SparqlFactory
   
   def self.getPredicates(user,contextTyp,keys)
     union = predicateUnion(keys)
-    result = "Select ?predicate ?operator ?variable ?sparql ?type where { #{union}. ?context ?predicate ?o. ?context context:belongsToUser context:#{user}. ?context rdf:type context:#{contextTyp}. ?predicate context:hasOperator ?operator. ?predicate context:hasVariable ?variable. ?predicate context:hasSparql ?sparql. ?predicate rdfs:range ?type.}"
+    result = "Select distinct ?predicate ?operator ?variable ?sparql ?type where { #{union}. ?context ?predicate ?o. ?context context:belongsToUser context:#{user}.  ?predicate context:hasOperator ?operator. ?predicate context:hasVariable ?variable. ?predicate context:hasSparql ?sparql. ?predicate rdfs:range ?type.}"
   end
   
   def self.predicateUnion(array)
@@ -56,11 +58,25 @@ class SparqlFactory
   def self.createContextQuery(user,contextTyp,predicates,attributes)
     where="?context rdf:type context:#{contextTyp}. ?context rdf:type ?contextTyp. ?contextTyp rdfs:label ?contextType. ?context rdfs:label ?contextName. ?context context:belongsToUser context:#{user}."
     vars=" "
+    @pres = predicates
+    @attrs = attributes
     predicates.each do |predicate|
       var =  attributes[predicate["variable"]]
       where += " OPTIONAL {?context <#{predicate['predicate']}> ?#{predicate['sparql']}}. "
       vars += "?#{predicate['sparql']} "
     end
-    result = "Select ?contextName ?contextType #{vars} where {#{where}}"
+    result = "Select ?contextName ?contextType ?context #{vars} where {#{where}}"
+  end
+  
+  def self.getDerivedContexts(contextUri)
+    where = "<#{contextUri}> context:hasSubContext ?context. ?context rdf:type ?contextTyp. ?context rdfs:label ?contextName."
+    vars=" "
+    @pres.each do |predicate|
+      var =  @attrs[predicate["variable"]]
+      where += " OPTIONAL {?context <#{predicate['predicate']}> ?#{predicate['sparql']}}. "
+      vars += "?#{predicate['sparql']} "
+    end
+    result = "Select ?contextName ?contextType ?context #{vars} where { #{where}}"
+    raise result.inspect
   end
 end
