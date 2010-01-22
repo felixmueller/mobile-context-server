@@ -68,15 +68,45 @@ class SparqlFactory
     result = "Select ?contextName ?contextType ?context #{vars} where {#{where}}"
   end
   
-  def self.getDerivedContexts(contextUri)
-    where = "<#{contextUri}> context:hasSubContext ?context. ?context rdf:type ?contextTyp. ?context rdfs:label ?contextName."
-    vars=" "
-    @pres.each do |predicate|
-      var =  @attrs[predicate["variable"]]
-      where += " OPTIONAL {?context <#{predicate['predicate']}> ?#{predicate['sparql']}}. "
-      vars += "?#{predicate['sparql']} "
+  def self.getDerivedContexts(hits)
+    where = "?context rdfs:label ?contextName. "
+    hits.each do |hit|
+      where += "{?context context:hasSubContext <#{hit['context']}>} UNION "
     end
-    result = "Select ?contextName ?contextType ?context #{vars} where { #{where}}"
-    raise result.inspect
+    where=where[0..where.length-7]
+    query = "Select distinct ?contextName ?context  where { #{where}}"
+    result = SesameAdapter.query("#{@prefix} #{query}")
+    result = Parser::Base.parseDerived(result)
+    result = checkForDerived(result,hits)
   end
+  
+  def self.checkForDerived(derived,check)
+    returner=[]
+    derived.each do |deriv|
+      query = "Select ?context where {<#{derived}> context:hasSubContext ?context}"
+      result = SesameAdapter.query("#{@prefix} #{query}")
+      result = Parser::Base.parseDerived(result)
+      bla = checkHits(result,check)
+      if bla==true
+        returner.push deriv
+      end
+    end
+    returner
+  end  
+  
+  def self.checkHits(one,two)
+    hits=[]
+    one.each do |on|
+      hit=false
+      two.each do |to|
+        if(on==to["context"])==true
+          hit=true
+        end
+      end
+      hits.push on if hit==true
+    end
+    hits==one ? true : false
+  end
+  
+  
 end

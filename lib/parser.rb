@@ -48,21 +48,19 @@ module Parser
       validate(contexts)
     end
     
-    # def self.parseAllPredicates(json_document)
-    #   predicates=[]
-    #   json_document = JSON.parse(json_document)
-    #   json_document["results"]["bindings"].each do |binding|
-    #     name = binding["predicate"]["value"]
-    #     predicates.push name
-    #   end
-    #   predicates
-    # end
-    
     def self.validate(array)
       array.each do |arr|
         arr.delete_if {|key, value| value.nil? }
       end
     end
 
+    def self.parseDerived(json_document)
+      contexts=[]
+      json_document = JSON.parse(json_document)
+      json_document["results"]["bindings"].each do |binding|
+         contexts.push binding["context"]["value"]
+       end
+       contexts
+    end
   end
 end
