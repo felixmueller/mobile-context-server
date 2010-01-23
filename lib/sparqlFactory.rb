@@ -88,7 +88,7 @@ class SparqlFactory
       result = Parser::Base.parseDerived(result)
       bla = checkHits(result,check)
       if bla==true
-        returner.push deriv
+        returner.push deriv.split("#")[1]
       end
     end
     returner
