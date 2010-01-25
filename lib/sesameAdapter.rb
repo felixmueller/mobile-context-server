@@ -2,8 +2,8 @@ module SesameAdapter
   
   repo = "contextserver"
   #@url="http://localhost:8080/openrdf-sesame/repositories/#{repo}"
-  @url="http://mims03.gm.fh-koeln.de:8282/openrdf-sesame/repositories/contextService"
-  
+  #@url="http://mims03.gm.fh-koeln.de:8282/openrdf-sesame/repositories/contextService"
+  @url="http://www.gipsprojekt.de/openrdf-sesame/repositories/#{repo}"
 
   DATA_TYPES = {
     :XML => "application/sparql-results+xml",
