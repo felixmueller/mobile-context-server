@@ -4,9 +4,9 @@
       %context
         %timestamp{:type => "datetime"}=Time.now
         %type=context["contextType"]
-        %value=context["contextName"]
+        %name=context["contextName"]
   -else 
     %context
       %timestamp{:type => "datetime"}=Time.now
       %type No Context Found
-      %value No ContextType found
+      %name No ContextType found

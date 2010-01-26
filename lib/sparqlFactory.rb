@@ -1,16 +1,58 @@
+#
+#  sparqlFactory.rb
+#  ContextServer
+#  This class handles all SPARQL queries
+#
+#  Created by Felix on 19.01.10.
+#  Copyright 2009 Felix Mueller (felixmueller@mac.com). All rights reserved.
+#
+#  Special thanks to Stephan Pavlovic for his hints & support!
+#
+
 class SparqlFactory
 
-  #namespaces für sparql abfragen
-  @prefix="PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+  # Define the default namespace for every SPARQL query
+  @prefix = "PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
   PREFIX owl2xml:<http://www.w3.org/2006/12/owl2-xml#>
   PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
-  PREFIX www:<http://www.mobileContext.de/>
+  PREFIX www:<http://contextserver.felixmueller.name/>
   PREFIX owl:<http://www.w3.org/2002/07/owl#>
-  PREFIX context:<http://www.mobileContext.de/context#>
+  PREFIX context:<http://contextserver.felixmueller.name/context#>
   PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
   
-  @predis=[]
-  @attrs={}
+#  @predis = []
+#  @attrs = {}
+  
+  #
+  # This method delivers all matching contexts for a given user and a given type.
+  #
+  # Parameters:
+  #   user: The name of the user the contexts belong to
+  #   type: The type of the contexts
+  #
+  def self.getAllContexts(user, type)
+    
+    # Define the user query string if user was specified
+    userTriple = "?context context:belongsToUser context:#{user}." unless user.nil?
+    
+    # Prepare the SPARQL query
+    sparqlQuery = " SELECT ?contextName ?contextType
+                    WHERE {
+                      #{userTriple}
+                      ?context      rdf:type      context:#{type}.
+                      ?context      rdfs:label    ?contextName.
+                      ?context      rdf:type      ?contextTyp.
+                      ?contextTyp   rdfs:label    ?contextType.
+                    }"
+    
+    # Query the triple store with the sesame adapter module
+    result = SesameAdapter.query("#{@prefix} #{sparqlQuery}")
+    
+    # Parse the result with the parser module
+    result = Parser::Base.parseAllContexts(result)
+    
+  end
+  
   # hauptmethode
   def self.getContext(user,contextTyp,attributes)
     # 1) prädikate ermitteln (alle, die zu user und dem typ gehören!)
@@ -28,12 +70,7 @@ class SparqlFactory
     result = Helper::Base.filterResults(result,attributes,predicates)
   end
   
-  def self.getAllContexts(user,typ)
-    use = "?context context:belongsToUser context:#{user}." unless user.nil?
-    query="Select ?contextName ?contextType where {#{use} ?context rdf:type context:#{typ}. ?context rdfs:label ?contextName. ?context rdf:type ?contextTyp. ?contextTyp rdfs:label ?contextType}"
-    result = SesameAdapter.query("#{@prefix} #{query}")
-    result = Parser::Base.parseAllContexts(result)
-  end
+
   
   
   def self.getAllPredicates
