@@ -123,24 +123,45 @@ class SparqlFactory
                 }"
   end
   
-  
-  
-  
-  def self.getAllPredicates
-    result = SesameAdapter.query("#{@prefix} Select distinct ?predicate ?operator ?variable ?sparql ?type where {?s ?predicate ?o. ?predicate rdfs:domain context:Context. ?predicate context:hasOperator ?operator. ?predicate context:hasVariable ?variable. ?predicate context:hasSparql ?sparql. ?predicate rdfs:range ?type.}")
-    result = Parser::Base.parseAllPredicates(result)
-  end
-  
-  
-  
+  #
+  # This method delivers the union clauses for all variables in the given attributes array.
+  #
+  # Parameters:
+  #   array: The array with the attributes
+  #
+  # Returns:
+  #   The union clauses for all variables in the given attributes array
+  #
   def self.predicateUnion(array)
+    
+    # Prepare the result
     result=" "
-    array.each do |a|
-      result += " {?predicate context:hasVariable '#{a}'} UNION"
+    
+    # Iterate all variables in the attributes array
+    array.each do |variable|
+      
+      # Add a SPARQL UNION clause for every variable
+      result += " {?predicate context:hasVariable '#{variable}'} UNION"
+
     end
-    result=result[0..result.length-6]
+    
+    # Remove the last "UNION"
+    result = result[0..result.length-6]
+    
+    # Return the result
     result
+    
   end
+  
+  
+#  def self.getAllPredicates
+#    result = SesameAdapter.query("#{@prefix} Select distinct ?predicate ?operator ?variable ?sparql ?type where {?s ?predicate ?o. ?predicate rdfs:domain context:Context. ?predicate context:hasOperator ?operator. ?predicate context:hasVariable ?variable. ?predicate context:hasSparql ?sparql. ?predicate rdfs:range ?type.}")
+#    result = Parser::Base.parseAllPredicates(result)
+#  end
+  
+  
+  
+
   
   def self.createContextQuery(user,type,predicates,attributes)
     where="?context rdf:type context:#{type}. ?context rdf:type ?contextTyp. ?contextTyp rdfs:label ?contextType. ?context rdfs:label ?contextName. ?context context:belongsToUser context:#{user}."
