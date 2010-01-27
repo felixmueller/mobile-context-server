@@ -311,7 +311,7 @@ class SparqlFactory
       end
       
       # Add hit
-      hits.push on if hit==true
+      hits.push firstItem if hit==true
     end
     
     # Return the hits
