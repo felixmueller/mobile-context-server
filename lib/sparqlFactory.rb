@@ -20,9 +20,6 @@ class SparqlFactory
   PREFIX context:<http://contextserver.felixmueller.name/context#>
   PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
   
-#  @predis = []
-#  @attrs = {}
-  
   #
   # This method delivers all matching contexts for a given user and a given type.
   #
@@ -176,9 +173,8 @@ class SparqlFactory
               ?context    rdfs:label            ?contextName.
               ?context    context:belongsToUser context:#{user}."
     
+    # Prepare variables
     vars = " "
-    @pres = predicates
-    @attrs = attributes
     
     # Iterate all predicates
     predicates.each do |predicate|
@@ -198,44 +194,129 @@ class SparqlFactory
                 }"
   end
   
+  #
+  # This method requests derived contexts based on the given hits.
+  #
+  # Parameters:
+  #   hits: An array if all hits
+  #
+  # Returns:
+  #   The derived contexts based on the given hits
+  #
   def self.getDerivedContexts(hits)
+    
+    # Prepare the WHERE clause
     where = "?context rdfs:label ?contextName. "
+
+    # Iterate all hits
     hits.each do |hit|
+      
+      # Add a clause for every hit
       where += "{?context context:hasSubContext <#{hit['context']}>} UNION "
+      
     end
-    where=where[0..where.length-7]
-    query = "Select distinct ?contextName ?context  where { #{where}}"
+
+    # Remove the last "UNION"
+    where = where[0..where.length-7]
+    
+    # Prepare the SPARQL query
+    query = " SELECT DISTINCT ?contextName ?context
+              WHERE {
+                #{where}
+              }"
+    
+    # Execute the SPARQL query
     result = SesameAdapter.query("#{@prefix} #{query}")
+
+    # Parse the results to ruby
     result = Parser::Base.parseDerived(result)
-    result = checkForDerived(result,hits)
+
+    # Check for derived contexts
+    result = checkForDerived(result, hits)
+    
   end
   
-  def self.checkForDerived(derived,check)
+  #
+  # This method checks for derived contexts.
+  #
+  # Parameters:
+  #   derived: The result to be checked
+  #   check: Parameter to be passed to checkHits
+  #
+  # Returns:
+  #   The check results
+  #
+  def self.checkForDerived(derived, check)
+    
+    # Prepare the return array
     returner=[]
+    
+    # Iterate all derived results
     derived.each do |deriv|
-      query = "Select ?context where {<#{derived}> context:hasSubContext ?context}"
+      
+      # Prepare the SPARQL query
+      query = " SELECT ?context
+                WHERE {
+                  <#{derived}> context:hasSubContext ?context
+                }"
+
+      # Execute the SPARQL query      
       result = SesameAdapter.query("#{@prefix} #{query}")
+
+      # Parse the results to ruby
       result = Parser::Base.parseDerived(result)
-      bla = checkHits(result,check)
-      if bla==true
+      
+      # Check hits
+      checkedHits = checkHits(result, check)
+
+      # Add to return value
+      if checkedHits == true
         returner.push deriv.split("#")[1]
       end
+      
     end
+    
+    # Return results
     returner
   end  
   
-  def self.checkHits(one,two)
+  #
+  # This method checks for hits.
+  #
+  # Parameters:
+  #   first: The first context parameter array
+  #   second: The second context parameter array
+  #
+  # Returns:
+  #   true or false if hit occured
+  #
+  def self.checkHits(first, second)
+
+    # Prepare the hits array
     hits=[]
-    one.each do |on|
+    
+    # Iterate all first items
+    first.each do |firstItem|
       hit=false
-      two.each do |to|
-        if(on==to["context"])==true
-          hit=true
+      
+      # Iterate all second items
+      second.each do |secondItem|
+        if(firstItem == secondItem["context"]) == true
+          
+          # Hit occured
+          hit = true
+          
         end
+        
       end
+      
+      # Add hit
       hits.push on if hit==true
     end
-    hits==one ? true : false
+    
+    # Return the hits
+    hits == first ? true : false
+    
   end
   
   #  def self.getAllPredicates
