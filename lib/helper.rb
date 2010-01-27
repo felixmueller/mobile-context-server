@@ -42,7 +42,7 @@ module Helper
         # Iterate all results
         result.each do |k,v|
           if (k != "contextName" && k != "contextType" && k != "context")
-            
+            hit = true
             # The type is checked
             case pres[k]['type']
               
