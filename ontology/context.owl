@@ -104,7 +104,7 @@
     <!-- http://contextserver.felixmueller.name/context#hasCountryCode -->
 
     <owl:DatatypeProperty rdf:about="#hasCountryCode">
-        <hasOperator>=</hasOperator>
+        <hasOperator>==</hasOperator>
         <hasVariable>countryCode</hasVariable>
         <hasSparql>countryCode</hasSparql>
         <rdfs:range rdf:resource="&xsd;string"/>
@@ -139,7 +139,7 @@
     <owl:DatatypeProperty rdf:about="#hasIpAddress">
         <hasVariable>ipAddress</hasVariable>
         <hasSparql>ipAddress</hasSparql>
-        <hasOperator>=</hasOperator>
+        <hasOperator>==</hasOperator>
         <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
     
@@ -280,7 +280,7 @@
     <!-- http://contextserver.felixmueller.name/context#hasTimezone -->
 
     <owl:DatatypeProperty rdf:about="#hasTimezone">
-        <hasOperator>=</hasOperator>
+        <hasOperator>==</hasOperator>
         <hasSparql>timezone</hasSparql>
         <hasVariable>timezone</hasVariable>
         <rdfs:range rdf:resource="&xsd;string"/>
@@ -291,9 +291,9 @@
     <!-- http://contextserver.felixmueller.name/context#hasWeek -->
 
     <owl:DatatypeProperty rdf:about="#hasWeek">
-        <hasOperator>=</hasOperator>
         <hasSparql>week</hasSparql>
         <hasVariable>week</hasVariable>
+        <hasOperator>==</hasOperator>
         <rdfs:range rdf:resource="&xsd;integer"/>
     </owl:DatatypeProperty>
     
@@ -325,7 +325,7 @@
 
     <owl:DatatypeProperty rdf:about="#hasWeekday">
         <hasSparql>weekday</hasSparql>
-        <hasOperator>=</hasOperator>
+        <hasOperator>==</hasOperator>
         <hasVariable>weekday</hasVariable>
         <rdfs:range rdf:resource="&xsd;integer"/>
     </owl:DatatypeProperty>
@@ -358,7 +358,7 @@
 
     <owl:DatatypeProperty rdf:about="#hasWlanName">
         <hasVariable>wlanName</hasVariable>
-        <hasOperator>=</hasOperator>
+        <hasOperator>==</hasOperator>
         <hasSparql>wlanName</hasSparql>
         <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
@@ -468,6 +468,7 @@
         <hasLatitudeMax rdf:datatype="&xsd;float">51</hasLatitudeMax>
         <hasLongitudeMin rdf:datatype="&xsd;float">6.8</hasLongitudeMin>
         <hasLongitudeMax rdf:datatype="&xsd;float">7</hasLongitudeMax>
+        <hasWlanName rdf:datatype="&xsd;string">Felix Netzwerk</hasWlanName>
         <belongsToUser rdf:resource="#FelixMueller"/>
     </LocationContext>
     
@@ -490,9 +491,9 @@
 
     <owl:Thing rdf:about="#MorningFelixMueller">
         <rdf:type rdf:resource="#TimeContext"/>
-        <rdfs:label>Morgen</rdfs:label>
+        <rdfs:label>Morning</rdfs:label>
         <hasDateMin>06:00:00</hasDateMin>
-        <hasDateMax>09:00:00</hasDateMax>
+        <hasDateMax>10:00:00</hasDateMax>
         <belongsToUser rdf:resource="#FelixMueller"/>
     </owl:Thing>
     
