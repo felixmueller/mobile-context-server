@@ -40,18 +40,15 @@ module Helper
           if (k != "contextName" && k != "contextType" && k != "context")
             
             # Special handling if the predicate is "time"
-            if pres[k]['type'] != "http://www.w3.org/2001/XMLSchema#time"
-
-              # Evaluate matches
-              bool = eval("#{v} #{pres[k]['operator']} #{attributes[pres[k]['variable']]}") 
-
-            else
-
-              # Evaluate matches
-              bool = eval("Time.parse('#{v}') #{pres[k]['operator']} Time.parse('#{attributes[pres[k]['variable']]}')")
-              
-            end
-            
+            case pres[k]['type']
+              when "http://www.w3.org/2001/XMLSchema#time" 
+                then bool = eval("Time.parse('#{v}') #{pres[k]['operator']} Time.parse('#{attributes[pres[k]['variable']]}')")
+              when "http://www.w3.org/2001/XMLSchema#string" 
+                then bool = eval("'#{v}' #{pres[k]['operator']} '#{attributes[pres[k]['variable']]}'") 
+              else
+                bool = eval("#{v} #{pres[k]['operator']} #{attributes[pres[k]['variable']]}") 
+             end
+             puts bool.inspect            
           end
           hit = bool if bool == false
           
