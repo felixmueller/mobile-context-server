@@ -34,13 +34,13 @@ module Helper
       
       # Iterate all results
       results.each do |result|
-        hit=true
-        bool=false
+        hit = true
+        bool = false
         result.each do |k,v|
           if (k != "contextName" && k != "contextType" && k != "context")
             
             # Special handling if the predicate is "time"
-            if pres[k]['type']!= "http://www.w3.org/2001/XMLSchema#time"
+            if pres[k]['type'] != "http://www.w3.org/2001/XMLSchema#time"
 
               # Evaluate matches
               bool = eval("#{v} #{pres[k]['operator']} #{attributes[pres[k]['variable']]}") 
@@ -53,12 +53,12 @@ module Helper
             end
             
           end
-          hit=bool if bool==false
+          hit = bool if bool == false
           
         end
         
         # Add to results if match occured
-        res.push result if hit==true
+        res.push result if hit == true
         
       end
       
