@@ -126,7 +126,7 @@
     <!-- http://contextserver.felixmueller.name/context#hasDateMin -->
 
     <owl:DatatypeProperty rdf:about="#hasDateMin">
-        <hasOperator>&lt;</hasOperator>
+        <hasOperator>&lt;=</hasOperator>
         <hasSparql>dateMin</hasSparql>
         <hasVariable>time</hasVariable>
         <rdfs:range rdf:resource="&xsd;time"/>
@@ -450,6 +450,30 @@
     
 
 
+    <!-- http://contextserver.felixmueller.name/context#AfternoonFelixMueller -->
+
+    <TimeContext rdf:about="#AfternoonFelixMueller">
+        <rdf:type rdf:resource="&owl;Thing"/>
+        <rdfs:label>Afternoon</rdfs:label>
+        <hasDateMin rdf:datatype="&xsd;time">14:00:00</hasDateMin>
+        <hasDateMax rdf:datatype="&xsd;time">17:00:00</hasDateMax>
+        <belongsToUser rdf:resource="#FelixMueller"/>
+    </TimeContext>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#EveningFelixMueller -->
+
+    <owl:Thing rdf:about="#EveningFelixMueller">
+        <rdf:type rdf:resource="#TimeContext"/>
+        <rdfs:label>Evening</rdfs:label>
+        <hasDateMin rdf:datatype="&xsd;time">17:00:00</hasDateMin>
+        <hasDateMax rdf:datatype="&xsd;time">23:00:00</hasDateMax>
+        <belongsToUser rdf:resource="#FelixMueller"/>
+    </owl:Thing>
+    
+
+
     <!-- http://contextserver.felixmueller.name/context#FelixMueller -->
 
     <owl:Thing rdf:about="#FelixMueller">
@@ -492,8 +516,8 @@
     <owl:Thing rdf:about="#MorningFelixMueller">
         <rdf:type rdf:resource="#TimeContext"/>
         <rdfs:label>Morning</rdfs:label>
-        <hasDateMin>06:00:00</hasDateMin>
-        <hasDateMax>10:00:00</hasDateMax>
+        <hasDateMin rdf:datatype="&xsd;time">00:00:00</hasDateMin>
+        <hasDateMax rdf:datatype="&xsd;time">11:00:00</hasDateMax>
         <belongsToUser rdf:resource="#FelixMueller"/>
     </owl:Thing>
     
@@ -504,9 +528,33 @@
     <owl:Thing rdf:about="#MorningStephanPavlovic">
         <rdf:type rdf:resource="#TimeContext"/>
         <rdfs:label>Morning</rdfs:label>
-        <hasDateMax>11:00:00</hasDateMax>
-        <hasDateMin>07:00:00</hasDateMin>
+        <hasDateMin rdf:datatype="&xsd;time">07:00:00</hasDateMin>
+        <hasDateMax rdf:datatype="&xsd;time">11:00:00</hasDateMax>
         <belongsToUser rdf:resource="#StephanPavlovic"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#NightFelixMueller -->
+
+    <TimeContext rdf:about="#NightFelixMueller">
+        <rdf:type rdf:resource="&owl;Thing"/>
+        <rdfs:label>Night</rdfs:label>
+        <hasDateMin rdf:datatype="&xsd;time">23:00:00</hasDateMin>
+        <hasDateMax rdf:datatype="&xsd;time">23:59:00</hasDateMax>
+        <belongsToUser rdf:resource="#FelixMueller"/>
+    </TimeContext>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#NoonFelixMueller -->
+
+    <owl:Thing rdf:about="#NoonFelixMueller">
+        <rdf:type rdf:resource="#TimeContext"/>
+        <rdfs:label>Noon</rdfs:label>
+        <hasDateMin rdf:datatype="&xsd;time">11:00:00</hasDateMin>
+        <hasDateMax rdf:datatype="&xsd;time">14:00:00</hasDateMax>
+        <belongsToUser rdf:resource="#FelixMueller"/>
     </owl:Thing>
     
 
@@ -518,6 +566,18 @@
         <rdfs:label
             >Stephan Pavlovic</rdfs:label>
     </owl:Thing>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#VerticalFelixMueller -->
+
+    <OrientationContext rdf:about="#VerticalFelixMueller">
+        <rdf:type rdf:resource="&owl;Thing"/>
+        <rdfs:label>Vertical</rdfs:label>
+        <hasOrientationXMin rdf:datatype="&xsd;float">0</hasOrientationXMin>
+        <hasOrientationXMax rdf:datatype="&xsd;float">0.2</hasOrientationXMax>
+        <belongsToUser rdf:resource="#FelixMueller"/>
+    </OrientationContext>
     
 
 
