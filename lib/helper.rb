@@ -114,10 +114,10 @@ module Helper
       ret=[]
       
       # Iterate all results
-      result.each do |result|
+      result.each do |res|
         
         # Add the context name and type to the results hash
-        hash = {"contextName"=>result,"contextType"=>"DerivedContext"}
+        hash = {"contextName"=>res,"contextType"=>"DerivedContext"}
         
         # Add the contexts to the return hash
         ret.push hash
