@@ -2,23 +2,23 @@
 
 
 <!DOCTYPE rdf:RDF [
-    <!ENTITY www "http://contextserver.felixmueller.name/" >
     <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
     <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
     <!ENTITY owl2xml "http://www.w3.org/2006/12/owl2-xml#" >
-    <!ENTITY context "http://contextserver.felixmueller.name/context#" >
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY www "http://contextserver.felixmueller.name/" >
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY context "http://contextserver.felixmueller.name/context#" >
 ]>
 
 
 <rdf:RDF xmlns="&www;context#"
-     xml:base="http://contextserver.felixmueller.name/context"
+     xml:base="&www;context"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
      xmlns:context="&www;context#"
-     xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:www="http://contextserver.felixmueller.name/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
     <owl:Ontology rdf:about=""/>
@@ -33,9 +33,9 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-    <owl:AnnotationProperty rdf:about="&www;context#hasSparql"/>
-    <owl:AnnotationProperty rdf:about="&www;context#hasVariable"/>
-    <owl:AnnotationProperty rdf:about="&www;context#hasOperator"/>
+    <owl:AnnotationProperty rdf:about="#hasOperator"/>
+    <owl:AnnotationProperty rdf:about="#hasSparql"/>
+    <owl:AnnotationProperty rdf:about="#hasVariable"/>
     
 
 
@@ -52,18 +52,18 @@
 
     <!-- http://contextserver.felixmueller.name/context#belongsToUser -->
 
-    <owl:ObjectProperty rdf:about="&www;context#belongsToUser">
-        <rdfs:domain rdf:resource="&www;context#Context"/>
-        <rdfs:range rdf:resource="&www;context#Person"/>
+    <owl:ObjectProperty rdf:about="#belongsToUser">
+        <rdfs:domain rdf:resource="#Context"/>
+        <rdfs:range rdf:resource="#Person"/>
     </owl:ObjectProperty>
     
 
 
     <!-- http://contextserver.felixmueller.name/context#hasSubContext -->
 
-    <owl:ObjectProperty rdf:about="&www;context#hasSubContext">
-        <rdfs:domain rdf:resource="&www;context#Context"/>
-        <rdfs:range rdf:resource="&www;context#Context"/>
+    <owl:ObjectProperty rdf:about="#hasSubContext">
+        <rdfs:domain rdf:resource="#Context"/>
+        <rdfs:range rdf:resource="#Context"/>
     </owl:ObjectProperty>
     
 
@@ -81,10 +81,10 @@
 
     <!-- http://contextserver.felixmueller.name/context#hasAltitudeMax -->
 
-    <owl:DatatypeProperty rdf:about="&www;context#hasAltitudeMax">
+    <owl:DatatypeProperty rdf:about="#hasAltitudeMax">
+        <hasSparql>altitudeMax</hasSparql>
         <hasVariable>altitude</hasVariable>
         <hasOperator>&gt;</hasOperator>
-        <hasSparql>altitudeMax</hasSparql>
         <rdfs:range rdf:resource="&xsd;float"/>
     </owl:DatatypeProperty>
     
@@ -92,18 +92,29 @@
 
     <!-- http://contextserver.felixmueller.name/context#hasAltitudeMin -->
 
-    <owl:DatatypeProperty rdf:about="&www;context#hasAltitudeMin">
+    <owl:DatatypeProperty rdf:about="#hasAltitudeMin">
         <hasVariable>altitude</hasVariable>
-        <hasSparql>altitudeMin</hasSparql>
         <hasOperator>&lt;</hasOperator>
+        <hasSparql>altitudeMin</hasSparql>
         <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#hasCountryCode -->
+
+    <owl:DatatypeProperty rdf:about="#hasCountryCode">
+        <hasOperator>=</hasOperator>
+        <hasVariable>countryCode</hasVariable>
+        <hasSparql>countryCode</hasSparql>
+        <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
     
 
 
     <!-- http://contextserver.felixmueller.name/context#hasDateMax -->
 
-    <owl:DatatypeProperty rdf:about="&www;context#hasDateMax">
+    <owl:DatatypeProperty rdf:about="#hasDateMax">
         <hasVariable>time</hasVariable>
         <hasOperator>&gt;</hasOperator>
         <hasSparql>dateMax</hasSparql>
@@ -114,18 +125,29 @@
 
     <!-- http://contextserver.felixmueller.name/context#hasDateMin -->
 
-    <owl:DatatypeProperty rdf:about="&www;context#hasDateMin">
+    <owl:DatatypeProperty rdf:about="#hasDateMin">
         <hasOperator>&lt;</hasOperator>
-        <hasVariable>time</hasVariable>
         <hasSparql>dateMin</hasSparql>
+        <hasVariable>time</hasVariable>
         <rdfs:range rdf:resource="&xsd;time"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#hasIpAddress -->
+
+    <owl:DatatypeProperty rdf:about="#hasIpAddress">
+        <hasVariable>ipAddress</hasVariable>
+        <hasSparql>ipAddress</hasSparql>
+        <hasOperator>=</hasOperator>
+        <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
     
 
 
     <!-- http://contextserver.felixmueller.name/context#hasLatitudeMax -->
 
-    <owl:DatatypeProperty rdf:about="&www;context#hasLatitudeMax">
+    <owl:DatatypeProperty rdf:about="#hasLatitudeMax">
         <hasVariable>latitude</hasVariable>
         <hasOperator>&gt;</hasOperator>
         <hasSparql>latitudeMax</hasSparql>
@@ -136,10 +158,10 @@
 
     <!-- http://contextserver.felixmueller.name/context#hasLatitudeMin -->
 
-    <owl:DatatypeProperty rdf:about="&www;context#hasLatitudeMin">
+    <owl:DatatypeProperty rdf:about="#hasLatitudeMin">
+        <hasOperator>&lt;</hasOperator>
         <hasVariable>latitude</hasVariable>
         <hasSparql>latitudeMin</hasSparql>
-        <hasOperator>&lt;</hasOperator>
         <rdfs:range rdf:resource="&xsd;float"/>
     </owl:DatatypeProperty>
     
@@ -147,10 +169,10 @@
 
     <!-- http://contextserver.felixmueller.name/context#hasLongitudeMax -->
 
-    <owl:DatatypeProperty rdf:about="&www;context#hasLongitudeMax">
-        <hasVariable>longitude</hasVariable>
+    <owl:DatatypeProperty rdf:about="#hasLongitudeMax">
         <hasOperator>&gt;</hasOperator>
         <hasSparql>longitudeMax</hasSparql>
+        <hasVariable>longitude</hasVariable>
         <rdfs:range rdf:resource="&xsd;float"/>
     </owl:DatatypeProperty>
     
@@ -158,7 +180,7 @@
 
     <!-- http://contextserver.felixmueller.name/context#hasLongitudeMin -->
 
-    <owl:DatatypeProperty rdf:about="&www;context#hasLongitudeMin">
+    <owl:DatatypeProperty rdf:about="#hasLongitudeMin">
         <hasVariable>longitude</hasVariable>
         <hasOperator>&lt;</hasOperator>
         <hasSparql>longitudeMin</hasSparql>
@@ -167,12 +189,78 @@
     
 
 
+    <!-- http://contextserver.felixmueller.name/context#hasOrientationXMax -->
+
+    <owl:DatatypeProperty rdf:about="#hasOrientationXMax">
+        <hasOperator>&gt;</hasOperator>
+        <hasSparql>orientationXMax</hasSparql>
+        <hasVariable>orientationX</hasVariable>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#hasOrientationXMin -->
+
+    <owl:DatatypeProperty rdf:about="#hasOrientationXMin">
+        <hasOperator>&lt;</hasOperator>
+        <hasVariable>orientationX</hasVariable>
+        <hasSparql>orientationXMin</hasSparql>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#hasOrientationYMax -->
+
+    <owl:DatatypeProperty rdf:about="#hasOrientationYMax">
+        <hasSparql>orientationYMax</hasSparql>
+        <hasVariable>orientationY</hasVariable>
+        <hasOperator>&gt;</hasOperator>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#hasOrientationYMin -->
+
+    <owl:DatatypeProperty rdf:about="#hasOrientationYMin">
+        <hasSparql>orientationYMin</hasSparql>
+        <hasOperator>&lt;</hasOperator>
+        <hasVariable>orientationY</hasVariable>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#hasOrientationZMax -->
+
+    <owl:DatatypeProperty rdf:about="#hasOrientationZMax">
+        <hasVariable>orientationZ</hasVariable>
+        <hasOperator>&gt;</hasOperator>
+        <hasSparql>orientationZMax</hasSparql>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#hasOrientationZMin -->
+
+    <owl:DatatypeProperty rdf:about="#hasOrientationZMin">
+        <hasVariable>orientationZ</hasVariable>
+        <hasSparql>orientationZMin</hasSparql>
+        <hasOperator>&lt;</hasOperator>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://contextserver.felixmueller.name/context#hasSpeedMax -->
 
-    <owl:DatatypeProperty rdf:about="&www;context#hasSpeedMax">
+    <owl:DatatypeProperty rdf:about="#hasSpeedMax">
         <hasSparql>speedMax</hasSparql>
-        <hasVariable>speed</hasVariable>
         <hasOperator>&gt;</hasOperator>
+        <hasVariable>speed</hasVariable>
         <rdfs:range rdf:resource="&xsd;float"/>
     </owl:DatatypeProperty>
     
@@ -180,21 +268,87 @@
 
     <!-- http://contextserver.felixmueller.name/context#hasSpeedMin -->
 
-    <owl:DatatypeProperty rdf:about="&www;context#hasSpeedMin">
-        <hasSparql>speedMin</hasSparql>
+    <owl:DatatypeProperty rdf:about="#hasSpeedMin">
         <hasOperator>&lt;</hasOperator>
         <hasVariable>speed</hasVariable>
+        <hasSparql>speedMin</hasSparql>
         <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#hasTimezone -->
+
+    <owl:DatatypeProperty rdf:about="#hasTimezone">
+        <hasOperator>=</hasOperator>
+        <hasSparql>timezone</hasSparql>
+        <hasVariable>timezone</hasVariable>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#hasWeek -->
+
+    <owl:DatatypeProperty rdf:about="#hasWeek">
+        <hasOperator>=</hasOperator>
+        <hasSparql>week</hasSparql>
+        <hasVariable>week</hasVariable>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#hasWeekMax -->
+
+    <owl:DatatypeProperty rdf:about="#hasWeekMax">
+        <hasVariable>week</hasVariable>
+        <hasOperator>&gt;</hasOperator>
+        <hasSparql>weekMax</hasSparql>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#hasWeekMin -->
+
+    <owl:DatatypeProperty rdf:about="#hasWeekMin">
+        <hasVariable>week</hasVariable>
+        <hasSparql>weekMin</hasSparql>
+        <hasOperator>&lt;</hasOperator>
+        <rdfs:range rdf:resource="&xsd;integer"/>
     </owl:DatatypeProperty>
     
 
 
     <!-- http://contextserver.felixmueller.name/context#hasWeekday -->
 
-    <owl:DatatypeProperty rdf:about="&www;context#hasWeekday">
-        <hasVariable>weekday</hasVariable>
-        <hasOperator>=</hasOperator>
+    <owl:DatatypeProperty rdf:about="#hasWeekday">
         <hasSparql>weekday</hasSparql>
+        <hasOperator>=</hasOperator>
+        <hasVariable>weekday</hasVariable>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#hasWeekdayMax -->
+
+    <owl:DatatypeProperty rdf:about="#hasWeekdayMax">
+        <hasSparql>weekdayMax</hasSparql>
+        <hasOperator>&gt;</hasOperator>
+        <hasVariable>weekday</hasVariable>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#hasWeekdayMin -->
+
+    <owl:DatatypeProperty rdf:about="#hasWeekdayMin">
+        <hasOperator>&lt;</hasOperator>
+        <hasSparql>weekdayMin</hasSparql>
+        <hasVariable>weekday</hasVariable>
         <rdfs:range rdf:resource="&xsd;integer"/>
     </owl:DatatypeProperty>
     
@@ -202,10 +356,10 @@
 
     <!-- http://contextserver.felixmueller.name/context#hasWlanName -->
 
-    <owl:DatatypeProperty rdf:about="&www;context#hasWlanName">
+    <owl:DatatypeProperty rdf:about="#hasWlanName">
         <hasVariable>wlanName</hasVariable>
-        <hasSparql>wlanName</hasSparql>
         <hasOperator>=</hasOperator>
+        <hasSparql>wlanName</hasSparql>
         <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
     
@@ -224,58 +378,64 @@
 
     <!-- http://contextserver.felixmueller.name/context#Context -->
 
-    <owl:Class rdf:about="&www;context#Context"/>
+    <owl:Class rdf:about="#Context"/>
     
 
 
     <!-- http://contextserver.felixmueller.name/context#DerivedContext -->
 
-    <owl:Class rdf:about="&www;context#DerivedContext">
+    <owl:Class rdf:about="#DerivedContext">
         <rdfs:label>DerivedContext</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&www;context#Context"/>
+        <rdfs:subClassOf rdf:resource="#Context"/>
     </owl:Class>
     
 
 
     <!-- http://contextserver.felixmueller.name/context#LocationContext -->
 
-    <owl:Class rdf:about="&www;context#LocationContext">
+    <owl:Class rdf:about="#LocationContext">
         <rdfs:label>LocationContext</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&www;context#Context"/>
+        <rdfs:subClassOf rdf:resource="#Context"/>
     </owl:Class>
     
 
 
     <!-- http://contextserver.felixmueller.name/context#OrientationContext -->
 
-    <owl:Class rdf:about="&www;context#OrientationContext">
+    <owl:Class rdf:about="#OrientationContext">
         <rdfs:label
             >OrientationContext</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&www;context#Context"/>
+        <rdfs:subClassOf rdf:resource="#Context"/>
     </owl:Class>
     
 
 
     <!-- http://contextserver.felixmueller.name/context#Person -->
 
-    <owl:Class rdf:about="&www;context#Person"/>
+    <owl:Class rdf:about="#Person"/>
     
 
 
     <!-- http://contextserver.felixmueller.name/context#TimeContext -->
 
-    <owl:Class rdf:about="&www;context#TimeContext">
+    <owl:Class rdf:about="#TimeContext">
         <rdfs:label>TimeContext</rdfs:label>
-        <rdfs:subClassOf rdf:resource="&www;context#Context"/>
+        <rdfs:subClassOf rdf:resource="#Context"/>
     </owl:Class>
     
 
 
     <!-- http://contextserver.felixmueller.name/context#User -->
 
-    <owl:Class rdf:about="&www;context#User">
-        <rdfs:subClassOf rdf:resource="&www;context#Person"/>
+    <owl:Class rdf:about="#User">
+        <rdfs:subClassOf rdf:resource="#Person"/>
     </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#Thing -->
+
+    <owl:Class rdf:about="&owl;Thing"/>
     
 
 
@@ -292,68 +452,68 @@
 
     <!-- http://contextserver.felixmueller.name/context#FelixMueller -->
 
-    <User rdf:about="&www;context#FelixMueller">
-        <rdf:type rdf:resource="&owl;Thing"/>
+    <owl:Thing rdf:about="#FelixMueller">
+        <rdf:type rdf:resource="#User"/>
         <rdfs:label>Felix M&#252;ller</rdfs:label>
-    </User>
+    </owl:Thing>
     
 
 
     <!-- http://contextserver.felixmueller.name/context#HomeFelixMueller -->
 
-    <LocationContext rdf:about="&www;context#HomeFelixMueller">
+    <LocationContext rdf:about="#HomeFelixMueller">
         <rdf:type rdf:resource="&owl;Thing"/>
         <rdfs:label>Home</rdfs:label>
         <hasLatitudeMin rdf:datatype="&xsd;float">50.8</hasLatitudeMin>
         <hasLatitudeMax rdf:datatype="&xsd;float">51</hasLatitudeMax>
         <hasLongitudeMin rdf:datatype="&xsd;float">6.8</hasLongitudeMin>
         <hasLongitudeMax rdf:datatype="&xsd;float">7</hasLongitudeMax>
-        <belongsToUser rdf:resource="&www;context#FelixMueller"/>
+        <belongsToUser rdf:resource="#FelixMueller"/>
     </LocationContext>
     
 
 
     <!-- http://contextserver.felixmueller.name/context#MorningAtWorkFelixMueller -->
 
-    <DerivedContext rdf:about="&www;context#MorningAtWorkFelixMueller">
+    <DerivedContext rdf:about="#MorningAtWorkFelixMueller">
         <rdf:type rdf:resource="&owl;Thing"/>
         <rdfs:label
             >Ein Morgen auf der Arbeit</rdfs:label>
-        <belongsToUser rdf:resource="&www;context#FelixMueller"/>
-        <hasSubContext rdf:resource="&www;context#MorningFelixMueller"/>
-        <hasSubContext rdf:resource="&www;context#WorkFelixMueller"/>
+        <belongsToUser rdf:resource="#FelixMueller"/>
+        <hasSubContext rdf:resource="#MorningFelixMueller"/>
+        <hasSubContext rdf:resource="#WorkFelixMueller"/>
     </DerivedContext>
     
 
 
     <!-- http://contextserver.felixmueller.name/context#MorningFelixMueller -->
 
-    <owl:Thing rdf:about="&www;context#MorningFelixMueller">
-        <rdf:type rdf:resource="&www;context#TimeContext"/>
+    <owl:Thing rdf:about="#MorningFelixMueller">
+        <rdf:type rdf:resource="#TimeContext"/>
         <rdfs:label>Morgen</rdfs:label>
-        <hasDateMax>09:00:00</hasDateMax>
         <hasDateMin>06:00:00</hasDateMin>
-        <belongsToUser rdf:resource="&www;context#FelixMueller"/>
+        <hasDateMax>09:00:00</hasDateMax>
+        <belongsToUser rdf:resource="#FelixMueller"/>
     </owl:Thing>
     
 
 
     <!-- http://contextserver.felixmueller.name/context#MorningStephanPavlovic -->
 
-    <owl:Thing rdf:about="&www;context#MorningStephanPavlovic">
-        <rdf:type rdf:resource="&www;context#TimeContext"/>
+    <owl:Thing rdf:about="#MorningStephanPavlovic">
+        <rdf:type rdf:resource="#TimeContext"/>
         <rdfs:label>Morning</rdfs:label>
-        <hasDateMin>07:00:00</hasDateMin>
         <hasDateMax>11:00:00</hasDateMax>
-        <belongsToUser rdf:resource="&www;context#StephanPavlovic"/>
+        <hasDateMin>07:00:00</hasDateMin>
+        <belongsToUser rdf:resource="#StephanPavlovic"/>
     </owl:Thing>
     
 
 
     <!-- http://contextserver.felixmueller.name/context#StephanPavlovic -->
 
-    <owl:Thing rdf:about="&www;context#StephanPavlovic">
-        <rdf:type rdf:resource="&www;context#User"/>
+    <owl:Thing rdf:about="#StephanPavlovic">
+        <rdf:type rdf:resource="#User"/>
         <rdfs:label
             >Stephan Pavlovic</rdfs:label>
     </owl:Thing>
@@ -362,15 +522,15 @@
 
     <!-- http://contextserver.felixmueller.name/context#WorkFelixMueller -->
 
-    <LocationContext rdf:about="&www;context#WorkFelixMueller">
-        <rdf:type rdf:resource="&owl;Thing"/>
+    <owl:Thing rdf:about="#WorkFelixMueller">
+        <rdf:type rdf:resource="#LocationContext"/>
         <rdfs:label>Work</rdfs:label>
         <hasDateMin rdf:datatype="&xsd;time">07:00:00</hasDateMin>
         <hasLongitudeMin rdf:datatype="&xsd;float">50</hasLongitudeMin>
         <hasLongitudeMax rdf:datatype="&xsd;float">55</hasLongitudeMax>
         <hasWlanName rdf:datatype="&xsd;string">work</hasWlanName>
-        <belongsToUser rdf:resource="&www;context#FelixMueller"/>
-    </LocationContext>
+        <belongsToUser rdf:resource="#FelixMueller"/>
+    </owl:Thing>
 </rdf:RDF>
 
 
