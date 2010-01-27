@@ -34,22 +34,34 @@ module Helper
       
       # Iterate all results
       results.each do |result|
+
+        # Prepare the flags
         hit = true
         bool = false
+        
+        # Iterate all results
         result.each do |k,v|
           if (k != "contextName" && k != "contextType" && k != "context")
             
-            # Special handling if the predicate is "time"
+            # The type is checked
             case pres[k]['type']
+              
+              # If the type is "time", the time has to be parsed
               when "http://www.w3.org/2001/XMLSchema#time" 
                 then bool = eval("Time.parse('#{v}') #{pres[k]['operator']} Time.parse('#{attributes[pres[k]['variable']]}')")
+              
+              # If the type is "string", the string has to be escaped
               when "http://www.w3.org/2001/XMLSchema#string" 
                 then bool = eval("'#{v}' #{pres[k]['operator']} '#{attributes[pres[k]['variable']]}'") 
+
+              # If the type is other, a numeric evaluation can be done
               else
                 bool = eval("#{v} #{pres[k]['operator']} #{attributes[pres[k]['variable']]}") 
              end
-             puts bool.inspect            
+       
           end
+          
+          # Set the result
           hit = bool if bool == false
           
         end
@@ -61,7 +73,7 @@ module Helper
       
       # Prepare and return the results
       result = getDerivedContexts(res)
-      res+=result
+      res += result
       res
       
     end 
