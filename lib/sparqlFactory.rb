@@ -145,7 +145,7 @@ class SparqlFactory
 
     end
     
-    # Remove the last "UNION"
+    # Remove the last " UNION"
     result = result[0..result.length-6]
     
     # Return the result
@@ -153,27 +153,49 @@ class SparqlFactory
     
   end
   
-  
-#  def self.getAllPredicates
-#    result = SesameAdapter.query("#{@prefix} Select distinct ?predicate ?operator ?variable ?sparql ?type where {?s ?predicate ?o. ?predicate rdfs:domain context:Context. ?predicate context:hasOperator ?operator. ?predicate context:hasVariable ?variable. ?predicate context:hasSparql ?sparql. ?predicate rdfs:range ?type.}")
-#    result = Parser::Base.parseAllPredicates(result)
-#  end
-  
-  
-  
-
-  
-  def self.createContextQuery(user,type,predicates,attributes)
-    where="?context rdf:type context:#{type}. ?context rdf:type ?contextTyp. ?contextTyp rdfs:label ?contextType. ?context rdfs:label ?contextName. ?context context:belongsToUser context:#{user}."
-    vars=" "
+  #
+  # This method delivers the final query to get all predicates for a given user
+  # and a given type matching the rules defined by the context model.
+  #
+  # Parameters:
+  #   user: The name of the user the contexts belong to
+  #   type: The type of the contexts
+  #   predicated: All predicates for the rules defined by the context model
+  #   attributes: The attributes with its values gathered from the client
+  #
+  # Returns:
+  #   The final query to get all predicates for a given user
+  #   and a given type matching the rules defined by the context model
+  #  
+  def self.createContextQuery(user, type, predicates, attributes)
+    
+    # Create the WHERE clause for the SPARQL query
+    where = " ?context    rdf:type              context:#{type}.
+              ?context    rdf:type              ?contextTyp.
+              ?contextTyp rdfs:label            ?contextType.
+              ?context    rdfs:label            ?contextName.
+              ?context    context:belongsToUser context:#{user}."
+    
+    vars = " "
     @pres = predicates
     @attrs = attributes
+    
+    # Iterate all predicates
     predicates.each do |predicate|
-      var =  attributes[predicate["variable"]]
+    
+      #var = attributes[predicate["variable"]]
+    
+      # Add clauses for every predicate
       where += " OPTIONAL {?context <#{predicate['predicate']}> ?#{predicate['sparql']}}. "
       vars += "?#{predicate['sparql']} "
+    
     end
-    result = "Select ?contextName ?contextType ?context #{vars} where {#{where}}"
+    
+    # Create the final SPARQL query and return it
+    result = "  SELECT ?contextName ?contextType ?context #{vars}
+                WHERE {
+                  #{where}
+                }"
   end
   
   def self.getDerivedContexts(hits)
@@ -216,5 +238,9 @@ class SparqlFactory
     hits==one ? true : false
   end
   
+  #  def self.getAllPredicates
+  #    result = SesameAdapter.query("#{@prefix} Select distinct ?predicate ?operator ?variable ?sparql ?type where {?s ?predicate ?o. ?predicate rdfs:domain context:Context. ?predicate context:hasOperator ?operator. ?predicate context:hasVariable ?variable. ?predicate context:hasSparql ?sparql. ?predicate rdfs:range ?type.}")
+  #    result = Parser::Base.parseAllPredicates(result)
+  #  end
   
 end
