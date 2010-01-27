@@ -4,7 +4,7 @@
 #  This is the Sinatra main web application
 #
 #  Created by Felix on 19.01.10.
-#  Copyright 2009 Felix Mueller (felixmueller@mac.com). All rights reserved.
+#  Copyright 2010 Felix Mueller (felixmueller@mac.com). All rights reserved.
 #
 #  Special thanks to Stephan Pavlovic for his hints & support!
 #
@@ -95,9 +95,5 @@ get '/contexts.xml' do
 
   # The returning template is the "contexts.haml" template
   haml :contexts, :locals => {:result => result}
+  
 end
-
-# get '/predicates.xml' do
-#   result = SparqlFactory.getAllPredicates()
-#   haml :predicates,:locals => {:result => result}
-# end

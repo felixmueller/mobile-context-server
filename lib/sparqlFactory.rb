@@ -4,7 +4,7 @@
 #  This class handles all SPARQL queries
 #
 #  Created by Felix on 19.01.10.
-#  Copyright 2009 Felix Mueller (felixmueller@mac.com). All rights reserved.
+#  Copyright 2010 Felix Mueller (felixmueller@mac.com). All rights reserved.
 #
 #  Special thanks to Stephan Pavlovic for his hints & support!
 #
@@ -318,10 +318,5 @@ class SparqlFactory
     hits == first ? true : false
     
   end
-  
-  #  def self.getAllPredicates
-  #    result = SesameAdapter.query("#{@prefix} Select distinct ?predicate ?operator ?variable ?sparql ?type where {?s ?predicate ?o. ?predicate rdfs:domain context:Context. ?predicate context:hasOperator ?operator. ?predicate context:hasVariable ?variable. ?predicate context:hasSparql ?sparql. ?predicate rdfs:range ?type.}")
-  #    result = Parser::Base.parseAllPredicates(result)
-  #  end
   
 end
