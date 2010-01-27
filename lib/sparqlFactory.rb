@@ -30,6 +30,9 @@ class SparqlFactory
   #   user: The name of the user the contexts belong to
   #   type: The type of the contexts
   #
+  # Returns:
+  #   All matching contexts for a given user and a given type
+  #
   def self.getAllContexts(user, type)
     
     # Define the user query string if user was specified
@@ -62,23 +65,65 @@ class SparqlFactory
   #   type: The type of the contexts
   #   attributes: The attributes with its values gathered from the client
   #
+  # Returns:
+  #   All matching contexts for a given user, a given type and the given attributes
+  #
   def self.getContext(user, type, attributes)
-    # 1) prädikate ermitteln (alle, die zu user und dem typ gehören!)
-    predicateQuery = getPredicates(user, type, attributes.keys)
-    # predicates: json-hash:
+    
+    # Prepare the query that requests all predicates that belong to the given user and the given type
+    predicateQuery = getPredicateQuery(user, type, attributes.keys)
+    
+    # Execute the query that requests all predicates that belong to the given user and the given type
     predicates = SesameAdapter.query("#{@prefix} #{predicateQuery}")
-    # parsen nach ruby hash:
+    
+    # Parse the JSON result to ruby
     predicates = Parser::Base.predicates(predicates)
     
-    # 2) kontext ermitteln (alle zu user und typ) 
-    contextQuery = createContextQuery(user, type, predicates, attributes) 
+    # Prepare the query that requests all contexts that match the given user and the given type
+    contextQuery = createContextQuery(user, type, predicates, attributes)
+
+    # Execute the query that requests all contexts that match the given user and the given type
     result = SesameAdapter.query("#{@prefix} #{contextQuery}")
+
+    # Parse the JSON result to ruby
     result = Parser::Base.contextName(result)
-    # 3) filtern nach bedingungen (regeln)
-    result = Helper::Base.filterResults(result,attributes,predicates)
+    
+    # Filter the results to match the given rules
+    result = Helper::Base.filterResults(result, attributes, predicates)
+  
   end
   
-
+  #
+  # This method delivers the query to get all predicates for a given user and a given type
+  # matching the given attributes.
+  #
+  # Parameters:
+  #   user: The name of the user the contexts belong to
+  #   type: The type of the contexts
+  #   keys: The attributes with its values gathered from the client
+  #
+  # Returns:
+  #   The query to get all matching predicates for a given user, a given type and the given attributes
+  #
+  def self.getPredicateQuery(user, type, keys)
+    
+    # Combine all attribute keys with a SPARQL UNION clause
+    union = predicateUnion(keys)
+    
+    # Return the SPARQL query 
+    result = "  SELECT DISTINCT ?predicate ?operator ?variable ?sparql ?type
+                WHERE {
+                  #{union}.
+                  ?context    ?predicate            ?o.
+                  ?context    context:belongsToUser context:#{user}.
+                  ?predicate  context:hasOperator   ?operator.
+                  ?predicate  context:hasVariable   ?variable.
+                  ?predicate  context:hasSparql     ?sparql.
+                  ?predicate  rdfs:range            ?type.
+                }"
+  end
+  
+  
   
   
   def self.getAllPredicates
@@ -86,10 +131,7 @@ class SparqlFactory
     result = Parser::Base.parseAllPredicates(result)
   end
   
-  def self.getPredicates(user, type, keys)
-    union = predicateUnion(keys)
-    result = "Select distinct ?predicate ?operator ?variable ?sparql ?type where { #{union}. ?context ?predicate ?o. ?context context:belongsToUser context:#{user}.  ?predicate context:hasOperator ?operator. ?predicate context:hasVariable ?variable. ?predicate context:hasSparql ?sparql. ?predicate rdfs:range ?type.}"
-  end
+  
   
   def self.predicateUnion(array)
     result=" "
