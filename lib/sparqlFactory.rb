@@ -53,17 +53,25 @@ class SparqlFactory
     
   end
   
-  # hauptmethode
-  def self.getContext(user,contextTyp,attributes)
+  #
+  # This method delivers all contexts for a given user and a given type
+  # matching the given attributes.
+  #
+  # Parameters:
+  #   user: The name of the user the contexts belong to
+  #   type: The type of the contexts
+  #   attributes: The attributes with its values gathered from the client
+  #
+  def self.getContext(user, type, attributes)
     # 1) prädikate ermitteln (alle, die zu user und dem typ gehören!)
-    predicateQuery = getPredicates(user,contextTyp,attributes.keys)
+    predicateQuery = getPredicates(user, type, attributes.keys)
     # predicates: json-hash:
     predicates = SesameAdapter.query("#{@prefix} #{predicateQuery}")
     # parsen nach ruby hash:
     predicates = Parser::Base.predicates(predicates)
     
     # 2) kontext ermitteln (alle zu user und typ) 
-    contextQuery = createContextQuery(user,contextTyp,predicates,attributes) 
+    contextQuery = createContextQuery(user, type, predicates, attributes) 
     result = SesameAdapter.query("#{@prefix} #{contextQuery}")
     result = Parser::Base.contextName(result)
     # 3) filtern nach bedingungen (regeln)
@@ -78,7 +86,7 @@ class SparqlFactory
     result = Parser::Base.parseAllPredicates(result)
   end
   
-  def self.getPredicates(user,contextTyp,keys)
+  def self.getPredicates(user, type, keys)
     union = predicateUnion(keys)
     result = "Select distinct ?predicate ?operator ?variable ?sparql ?type where { #{union}. ?context ?predicate ?o. ?context context:belongsToUser context:#{user}.  ?predicate context:hasOperator ?operator. ?predicate context:hasVariable ?variable. ?predicate context:hasSparql ?sparql. ?predicate rdfs:range ?type.}"
   end
@@ -92,8 +100,8 @@ class SparqlFactory
     result
   end
   
-  def self.createContextQuery(user,contextTyp,predicates,attributes)
-    where="?context rdf:type context:#{contextTyp}. ?context rdf:type ?contextTyp. ?contextTyp rdfs:label ?contextType. ?context rdfs:label ?contextName. ?context context:belongsToUser context:#{user}."
+  def self.createContextQuery(user,type,predicates,attributes)
+    where="?context rdf:type context:#{type}. ?context rdf:type ?contextTyp. ?contextTyp rdfs:label ?contextType. ?context rdfs:label ?contextName. ?context context:belongsToUser context:#{user}."
     vars=" "
     @pres = predicates
     @attrs = attributes
