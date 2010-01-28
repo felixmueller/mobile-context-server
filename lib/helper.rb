@@ -25,58 +25,42 @@ module Helper
     #   The filtered results
     #
     def self.filterResults(results, attributes, predicates)
-      
-      # Prepare the return value
       res=[]
+      results.each do |result|
+        if (result.keys.length > 3)
+          res.push result
+        end
+      end
       
       # Map all predicates
       pres = map(predicates)
-      
-      # Iterate all results
-      results.each do |result|
-
-        # Prepare the flags
-        hit = true
-        bool = false
-        
-        # Iterate all results
+      returnArray=[]
+      res.each do |result|
+        hit=bool=true
         result.each do |k,v|
           if (k != "contextName" && k != "contextType" && k != "context")
-            hit = true
-            # The type is checked
             case pres[k]['type']
-              
               # If the type is "time", the time has to be parsed
               when "http://www.w3.org/2001/XMLSchema#time" 
                 then bool = eval("Time.parse('#{v}') #{pres[k]['operator']} Time.parse('#{attributes[pres[k]['variable']]}')")
-              
               # If the type is "string", the string has to be escaped
               when "http://www.w3.org/2001/XMLSchema#string" 
-                then bool = eval("'#{v}' #{pres[k]['operator']} '#{attributes[pres[k]['variable']]}'") 
-
+                then bool = eval("'#{v}' #{pres[k]['operator']} '#{attributes[pres[k]['variable']]}'")
               # If the type is other, a numeric evaluation can be done
               else
                 bool = eval("#{v} #{pres[k]['operator']} #{attributes[pres[k]['variable']]}") 
              end
-       
-          end
-          
-          # Set the result
-          hit = bool if bool == false
-          
-        end
-        
+             hit &= bool
+          end #if
+        end #result.each |k,v|
         # Add to results if match occured
-        res.push result if hit == true
-        
-      end
-      
-      # Prepare and return the results
-      result = getDerivedContexts(res)
-      res += result
-      res
-      
-    end 
+        returnArray.push result if hit == true
+      end 
+      result = getDerivedContexts(returnArray)
+      returnArray += result
+      returnArray
+    end
+    
     
     #
     # This method maps all given predicates.
