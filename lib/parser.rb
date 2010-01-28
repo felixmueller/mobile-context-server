@@ -153,8 +153,8 @@ module Parser
 
       # Bind the results
       json_document["results"]["bindings"].each do |binding|
-          hash = {"context" => binding["context"]["value"],"contextName"=>binding["contextName"]["value"]}
-         contexts.push hash
+        hash = {"context" => binding["context"]["value"],"contextName" => binding["contextName"]["value"]}
+        contexts.push hash
       end
       
       # Return results

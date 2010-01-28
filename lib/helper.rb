@@ -82,11 +82,13 @@ module Helper
       
       # Prepare and return the results
       result = returnArray
-      #so lange es abgeleitete Kontexte gibt - weitermachen....
+      
+      # Continue while derived context exist
       while result.length > 0 
         result = getDerivedContexts(result)
         returnArray += result
       end
+      
       returnArray
       
     end
@@ -144,8 +146,10 @@ module Helper
         ret.push hash
         
       end
+      
       # Return the result hash
       ret
+      
     end
     
   end

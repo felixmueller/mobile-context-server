@@ -224,12 +224,16 @@ class SparqlFactory
               WHERE {
                 #{where}
               }"
+              
     # Execute the SPARQL query
     result = SesameAdapter.query("#{@prefix} #{query}")
+
     # Parse the results to ruby
     result = Parser::Base.parseDerived(result)
+
     # Check for derived contexts
     result = checkForDerived(result, hits)
+
   end
   
   #
@@ -249,18 +253,25 @@ class SparqlFactory
     
     # Iterate all derived results
     derived.each do |deriv|
-      context =  deriv['context']
+      
+      # Get derived context
+      context = deriv['context']
+      
       # Prepare the SPARQL query
       query = " SELECT ?context ?contextName
                 WHERE {
                   <#{context}> context:hasSubContext ?context. ?context rdfs:label ?contextName
                 }"
+                
       # Execute the SPARQL query      
       result = SesameAdapter.query("#{@prefix} #{query}")
+
       # Parse the results to ruby
       result = Parser::Base.parseDerived(result)
+
       # Check hits
       checkedHits = checkHits(result, check)
+
       # Add to return value
       if checkedHits == true
         returner.push deriv
@@ -283,7 +294,7 @@ class SparqlFactory
   #   true or false if hit occured
   #
   def self.checkHits(first, second)
-    #raise first.inspect + " - " + second.inspect
+
     # Prepare the hits array
     hits=[]
     
