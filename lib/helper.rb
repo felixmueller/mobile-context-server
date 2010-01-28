@@ -25,7 +25,11 @@ module Helper
     #   The filtered results
     #
     def self.filterResults(results, attributes, predicates)
-      res=[]
+      
+      # Prepare the results array
+      res = []
+      
+      # Iterate all results
       results.each do |result|
         if (result.keys.length > 3)
           res.push result
@@ -34,31 +38,53 @@ module Helper
       
       # Map all predicates
       pres = map(predicates)
-      returnArray=[]
+      
+      # Prepare the return array
+      returnArray = []
+      
+      # Iterate all results
       res.each do |result|
-        hit=bool=true
+        
+        # Prepare the flags
+        hit = bool = true
+        
+        # Iterate all results
         result.each do |k,v|
           if (k != "contextName" && k != "contextType" && k != "context")
+
+            # Check the type
             case pres[k]['type']
+
               # If the type is "time", the time has to be parsed
               when "http://www.w3.org/2001/XMLSchema#time" 
                 then bool = eval("Time.parse('#{v}') #{pres[k]['operator']} Time.parse('#{attributes[pres[k]['variable']]}')")
+
               # If the type is "string", the string has to be escaped
               when "http://www.w3.org/2001/XMLSchema#string" 
                 then bool = eval("'#{v}' #{pres[k]['operator']} '#{attributes[pres[k]['variable']]}'")
+
               # If the type is other, a numeric evaluation can be done
               else
                 bool = eval("#{v} #{pres[k]['operator']} #{attributes[pres[k]['variable']]}") 
+
              end
+
+             # Save the hit
              hit &= bool
-          end #if
-        end #result.each |k,v|
+
+          end
+
+        end
+
         # Add to results if match occured
         returnArray.push result if hit == true
       end 
+
+      # Prepare and return the results
       result = getDerivedContexts(returnArray)
       returnArray += result
       returnArray
+      
     end
     
     
