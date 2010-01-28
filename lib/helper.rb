@@ -79,10 +79,14 @@ module Helper
         # Add to results if match occured
         returnArray.push result if hit == true
       end 
-
+      
       # Prepare and return the results
-      result = getDerivedContexts(returnArray)
-      returnArray += result
+      result = returnArray
+      #so lange es abgeleitete Kontexte gibt - weitermachen....
+      while result.length > 0 
+        result = getDerivedContexts(result)
+        returnArray += result
+      end
       returnArray
       
     end
@@ -125,10 +129,8 @@ module Helper
     #   A hash with all derived contexts from the hits
     #
     def self.getDerivedContexts(hits)
-      
       # Get all derived contexts from the sparqlFactory
       result = SparqlFactory.getDerivedContexts(hits)
-      
       # Prepare the return values
       ret=[]
       
@@ -136,16 +138,14 @@ module Helper
       result.each do |res|
         
         # Add the context name and type to the results hash
-        hash = {"contextName"=>res,"contextType"=>"DerivedContext"}
+        hash = {"contextName"=>res["contextName"],"contextType"=>"DerivedContext","context"=>res["context"]}
         
         # Add the contexts to the return hash
         ret.push hash
         
       end
-
       # Return the result hash
       ret
-      
     end
     
   end
