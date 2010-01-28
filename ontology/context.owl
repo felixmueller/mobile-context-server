@@ -492,9 +492,38 @@
         <hasLatitudeMax rdf:datatype="&xsd;float">51</hasLatitudeMax>
         <hasLongitudeMin rdf:datatype="&xsd;float">6.8</hasLongitudeMin>
         <hasLongitudeMax rdf:datatype="&xsd;float">7</hasLongitudeMax>
-        <hasWlanName rdf:datatype="&xsd;string">Felix Netzwerk</hasWlanName>
+        <hasWlanName rdf:datatype="&xsd;string"
+            >Felix Netzwerk 2</hasWlanName>
         <belongsToUser rdf:resource="#FelixMueller"/>
     </LocationContext>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#LandscapeLeftFelixMueller -->
+
+    <owl:Thing rdf:about="#LandscapeLeftFelixMueller">
+        <rdf:type rdf:resource="#OrientationContext"/>
+        <rdfs:label>LandscapeLeft</rdfs:label>
+        <hasOrientationZMin rdf:datatype="&xsd;float">-0.3</hasOrientationZMin>
+        <hasOrientationXMax rdf:datatype="&xsd;float">-0.99</hasOrientationXMax>
+        <hasOrientationXMin rdf:datatype="&xsd;float">-1.1</hasOrientationXMin>
+        <hasOrientationZMax rdf:datatype="&xsd;float">0.3</hasOrientationZMax>
+        <belongsToUser rdf:resource="#FelixMueller"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#LandscapeRightFelixMueller -->
+
+    <owl:Thing rdf:about="#LandscapeRightFelixMueller">
+        <rdf:type rdf:resource="#OrientationContext"/>
+        <rdfs:label>LandscapeRight</rdfs:label>
+        <hasOrientationZMin rdf:datatype="&xsd;float">-0.3</hasOrientationZMin>
+        <hasOrientationZMax rdf:datatype="&xsd;float">0.3</hasOrientationZMax>
+        <hasOrientationXMin rdf:datatype="&xsd;float">0.9</hasOrientationXMin>
+        <hasOrientationXMax rdf:datatype="&xsd;float">1.1</hasOrientationXMax>
+        <belongsToUser rdf:resource="#FelixMueller"/>
+    </owl:Thing>
     
 
 
@@ -559,6 +588,34 @@
     
 
 
+    <!-- http://contextserver.felixmueller.name/context#PlainFelixMueller -->
+
+    <OrientationContext rdf:about="#PlainFelixMueller">
+        <rdf:type rdf:resource="&owl;Thing"/>
+        <rdfs:label>Plain</rdfs:label>
+        <hasOrientationXMin rdf:datatype="&xsd;float">-0.1</hasOrientationXMin>
+        <hasOrientationYMin rdf:datatype="&xsd;float">-0.1</hasOrientationYMin>
+        <hasOrientationYMax rdf:datatype="&xsd;float">0.01</hasOrientationYMax>
+        <hasOrientationXMax rdf:datatype="&xsd;float">0.04</hasOrientationXMax>
+        <belongsToUser rdf:resource="#FelixMueller"/>
+    </OrientationContext>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#PortraitFelixMueller -->
+
+    <owl:Thing rdf:about="#PortraitFelixMueller">
+        <rdf:type rdf:resource="#OrientationContext"/>
+        <rdfs:label>Portrait</rdfs:label>
+        <hasOrientationXMin rdf:datatype="&xsd;float">-0.2</hasOrientationXMin>
+        <hasOrientationZMin rdf:datatype="&xsd;float">-0.3</hasOrientationZMin>
+        <hasOrientationXMax rdf:datatype="&xsd;float">0.2</hasOrientationXMax>
+        <hasOrientationZMax rdf:datatype="&xsd;float">0.3</hasOrientationZMax>
+        <belongsToUser rdf:resource="#FelixMueller"/>
+    </owl:Thing>
+    
+
+
     <!-- http://contextserver.felixmueller.name/context#StephanPavlovic -->
 
     <owl:Thing rdf:about="#StephanPavlovic">
@@ -566,18 +623,6 @@
         <rdfs:label
             >Stephan Pavlovic</rdfs:label>
     </owl:Thing>
-    
-
-
-    <!-- http://contextserver.felixmueller.name/context#VerticalFelixMueller -->
-
-    <OrientationContext rdf:about="#VerticalFelixMueller">
-        <rdf:type rdf:resource="&owl;Thing"/>
-        <rdfs:label>Vertical</rdfs:label>
-        <hasOrientationXMin rdf:datatype="&xsd;float">0</hasOrientationXMin>
-        <hasOrientationXMax rdf:datatype="&xsd;float">0.2</hasOrientationXMax>
-        <belongsToUser rdf:resource="#FelixMueller"/>
-    </OrientationContext>
     
 
 
