@@ -101,6 +101,28 @@
     
 
 
+    <!-- http://contextserver.felixmueller.name/context#hasAverageLevelMax -->
+
+    <owl:DatatypeProperty rdf:about="#hasAverageLevelMax">
+        <hasSparql>averageLevelMax</hasSparql>
+        <hasOperator>&gt;</hasOperator>
+        <hasVariable>averageLevel</hasVariable>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#hasAverageLevelMin -->
+
+    <owl:DatatypeProperty rdf:about="#hasAverageLevelMin">
+        <hasVariable>averageLevel</hasVariable>
+        <hasOperator>&lt;</hasOperator>
+        <hasSparql>averageLevelMin</hasSparql>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://contextserver.felixmueller.name/context#hasCountryCode -->
 
     <owl:DatatypeProperty rdf:about="#hasCountryCode">
@@ -255,6 +277,28 @@
     
 
 
+    <!-- http://contextserver.felixmueller.name/context#hasPeakLevelMax -->
+
+    <owl:DatatypeProperty rdf:about="#hasPeakLevelMax">
+        <hasSparql>peakLevelMax</hasSparql>
+        <hasVariable>peakLevel</hasVariable>
+        <hasOperator>&gt;</hasOperator>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#hasPeakLevelMin -->
+
+    <owl:DatatypeProperty rdf:about="#hasPeakLevelMin">
+        <hasVariable>peakLevel</hasVariable>
+        <hasOperator>&lt;</hasOperator>
+        <hasSparql>peakLevelMin</hasSparql>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://contextserver.felixmueller.name/context#hasSpeedMax -->
 
     <owl:DatatypeProperty rdf:about="#hasSpeedMax">
@@ -376,6 +420,15 @@
     
 
 
+    <!-- http://contextserver.felixmueller.name/context#AudioContext -->
+
+    <owl:Class rdf:about="#AudioContext">
+        <rdfs:label>AudioContext</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Context"/>
+    </owl:Class>
+    
+
+
     <!-- http://contextserver.felixmueller.name/context#Context -->
 
     <owl:Class rdf:about="#Context"/>
@@ -462,6 +515,34 @@
     
 
 
+    <!-- http://contextserver.felixmueller.name/context#ChargingFelixMueller -->
+
+    <owl:Thing rdf:about="#ChargingFelixMueller">
+        <rdf:type rdf:resource="#DerivedContext"/>
+        <rdfs:label>Charging</rdfs:label>
+        <hasSubContext rdf:resource="#AfternoonFelixMueller"/>
+        <belongsToUser rdf:resource="#FelixMueller"/>
+        <hasSubContext rdf:resource="#InDockFelixMueller"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#DockedPositionFelixMueller -->
+
+    <owl:Thing rdf:about="#DockedPositionFelixMueller">
+        <rdf:type rdf:resource="#OrientationContext"/>
+        <rdfs:label>DockedPosition</rdfs:label>
+        <hasOrientationXMin rdf:datatype="&xsd;float">-0.06</hasOrientationXMin>
+        <hasOrientationZMax rdf:datatype="&xsd;float">-0.18</hasOrientationZMax>
+        <hasOrientationZMin rdf:datatype="&xsd;float">-0.26</hasOrientationZMin>
+        <hasOrientationYMax rdf:datatype="&xsd;float">-1.01</hasOrientationYMax>
+        <hasOrientationYMin rdf:datatype="&xsd;float">-1.035</hasOrientationYMin>
+        <hasOrientationXMax rdf:datatype="&xsd;float">0</hasOrientationXMax>
+        <belongsToUser rdf:resource="#FelixMueller"/>
+    </owl:Thing>
+    
+
+
     <!-- http://contextserver.felixmueller.name/context#EveningFelixMueller -->
 
     <owl:Thing rdf:about="#EveningFelixMueller">
@@ -499,6 +580,18 @@
     
 
 
+    <!-- http://contextserver.felixmueller.name/context#InDockFelixMueller -->
+
+    <owl:Thing rdf:about="#InDockFelixMueller">
+        <rdf:type rdf:resource="#DerivedContext"/>
+        <rdfs:label>InDock</rdfs:label>
+        <hasSubContext rdf:resource="#DockedPositionFelixMueller"/>
+        <belongsToUser rdf:resource="#FelixMueller"/>
+        <hasSubContext rdf:resource="#HomeFelixMueller"/>
+    </owl:Thing>
+    
+
+
     <!-- http://contextserver.felixmueller.name/context#LandscapeLeftFelixMueller -->
 
     <owl:Thing rdf:about="#LandscapeLeftFelixMueller">
@@ -522,6 +615,29 @@
         <hasOrientationZMax rdf:datatype="&xsd;float">0.3</hasOrientationZMax>
         <hasOrientationXMin rdf:datatype="&xsd;float">0.9</hasOrientationXMin>
         <hasOrientationXMax rdf:datatype="&xsd;float">1.1</hasOrientationXMax>
+        <belongsToUser rdf:resource="#FelixMueller"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#LoudFelixMueller -->
+
+    <owl:Thing rdf:about="#LoudFelixMueller">
+        <rdf:type rdf:resource="#AudioContext"/>
+        <rdfs:label>Loud</rdfs:label>
+        <hasAverageLevelMin rdf:datatype="&xsd;float">0.1</hasAverageLevelMin>
+        <belongsToUser rdf:resource="#FelixMueller"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#ModerateFelixMueller -->
+
+    <owl:Thing rdf:about="#ModerateFelixMueller">
+        <rdf:type rdf:resource="#AudioContext"/>
+        <rdfs:label>Moderate</rdfs:label>
+        <hasAverageLevelMin rdf:datatype="&xsd;float">0.009</hasAverageLevelMin>
+        <hasAverageLevelMax rdf:datatype="&xsd;float">0.1</hasAverageLevelMax>
         <belongsToUser rdf:resource="#FelixMueller"/>
     </owl:Thing>
     
@@ -613,6 +729,17 @@
         <hasOrientationZMax rdf:datatype="&xsd;float">0.3</hasOrientationZMax>
         <belongsToUser rdf:resource="#FelixMueller"/>
     </owl:Thing>
+    
+
+
+    <!-- http://contextserver.felixmueller.name/context#SilenceFelixMueller -->
+
+    <AudioContext rdf:about="#SilenceFelixMueller">
+        <rdf:type rdf:resource="&owl;Thing"/>
+        <rdfs:label>Silence</rdfs:label>
+        <hasAverageLevelMax rdf:datatype="&xsd;float">0.009</hasAverageLevelMax>
+        <belongsToUser rdf:resource="#FelixMueller"/>
+    </AudioContext>
     
 
 
