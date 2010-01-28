@@ -15,8 +15,8 @@ module SesameAdapter
   repo = "contextserver"
   
   # Set up the server URL
-  @url="http://localhost:8080/openrdf-sesame/repositories/#{repo}"
-  #@url="http://www.gipsprojekt.de/openrdf-sesame/repositories/#{repo}"
+  #@url="http://localhost:8080/openrdf-sesame/repositories/#{repo}"
+  @url="http://www.gipsprojekt.de/openrdf-sesame/repositories/#{repo}"
 
   # Define the data types
   DATA_TYPES = {
