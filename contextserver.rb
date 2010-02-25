@@ -35,7 +35,7 @@ require 'lib/helper'
 #   none
 #
 # Examples:
-#   GET http://contextserver.felixmueller.name/context#
+#   GET http://[hostname]/context#
 #
 # Returns:
 #   context.owl: The ontology
@@ -56,8 +56,8 @@ end
 #   attributes (optional): The attributes with its values gathered from the client
 #
 # Examples:
-#   GET http://localhost:4567/contexts.xml?user=FelixMueller
-#   GET http://localhost:4567/contexts.xml?user=FelixMueller&type=LocationContext&attributes={'longitude'=>'61','latitude=>'59'}
+#   GET http://[hostname]/contexts.xml?user=FelixMueller
+#   GET http://[hostname]/contexts.xml?user=FelixMueller&type=LocationContext&attributes={'longitude'=>'61','latitude=>'59'}
 #
 # Returns:
 #   contexts.xml: The results as XML rendered through the template "views/contexts.haml"

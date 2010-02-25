@@ -11,13 +11,16 @@
 
 module SesameAdapter
   
-  # Define the repository name
-  repo = "contextserver"
+  # The repository name of the semantic triple store containing the context ontology is set up here:
+  # You have to enter the name of your context repository here
+  # E.g.: repo = "mycontextserver"
+  repo = "YOUR_CONTEXT_REPOSITORY_HERE"
   
-  # Set up the server URL
-  #@url="http://localhost:8080/openrdf-sesame/repositories/#{repo}"
-  @url="http://www.gipsprojekt.de/openrdf-sesame/repositories/#{repo}"
-
+  # The hostname of the OpenRDF Sesame semantic triple store is set up here
+  # You have to enter the hostname of your triple store containing the context ontology here:
+  # E.g.: @url="http://myhostname/openrdf-sesame/repositories/#{repo}"
+  @url="http://YOUR_HOSTNAME_HERE/openrdf-sesame/repositories/#{repo}"
+  
   # Define the data types
   DATA_TYPES = {
     :XML => "application/sparql-results+xml",
