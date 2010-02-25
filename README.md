@@ -14,24 +14,30 @@ The Mobile Context Server
 
 ### Installation notes ###
 
-The Mobile Context Server consists of a [Sinatra](http://sinatrarb.com/) Web application and a sample-ontology containing the context information. Here is how to set everything up:
+The *Mobile Context Server* consists of a [Sinatra](http://sinatrarb.com/) Web application and a sample-ontology containing the context information. Here is how to set everything up:
 
 #### 1. Set up the semantic triple store ####
 
 The hosting of the context model requires a running instance of the OpenRDF Sesame semantic triple store containing the ontology.
 
-* Download the [OpenRDF Sesame](http://www.openrdf.org) Web application [here](http://www.openrdf.org/download.jsp)
-* Set it up following the [instructions](http://www.openrdf.org/doc/sesame2/users/ch06.html)
-* Navigate to the workbench (i.e. http://yourhostname/openrdf-workbench/) and add a new repository for storing the contexts
-* Add the [sample ontology file](http://github.com/flxmllr/mobile-context-server/raw/master/ontology/context.owl) to the created repository
+1. Download the [OpenRDF Sesame](http://www.openrdf.org) Web application [here](http://www.openrdf.org/download.jsp)
+2. Set it up following the [instructions](http://www.openrdf.org/doc/sesame2/users/ch06.html)
+3. Navigate to the workbench (i.e. http://yourhostname/openrdf-workbench/) and add a new repository for storing the contexts
+4. Add the [sample ontology file](http://github.com/flxmllr/mobile-context-server/raw/master/ontology/context.owl) to the created repository
 
 #### 2. Set up the Web application ####
 
-test2
+The Sinatra Web application needs to be hosted by a hosting service providing Sinatra support. [Heroku](http://heroku.com/) for example offers free Sinatra hosting for small Web apps.
+
+1. Download or checkout the source files of this project
+2. Enter the proper URL of your triple store server and repository name in the file "lib/sesameAdapter.rb"
+3. Set up the Web application by following the provider's instructions (for Heroku, see [here](http://docs.heroku.com/quickstart))
+
+The *Mobile Context Server* should now be ready. See step 3 for customization.
 
 #### 3. Customization ####
 
-test3
+To add or modify context information, you can simply edit the ontology hosted by the triple store. I recommended the [Protégé Ontology Editor](http://protege.stanford.edu) for editing the OWL file. Examples for adding contexts are shown in [this YouTube video](http://www.youtube.com/watch?v=Bx2nH0Z9hPc).
 
 ### API documentation ###
 
