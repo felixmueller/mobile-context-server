@@ -30,7 +30,7 @@ The hosting of the context model requires a running instance of the OpenRDF Sesa
 The Sinatra Web application needs to be hosted by a hosting service providing Sinatra support. [Heroku](http://heroku.com/) for example offers free Sinatra hosting for small Web apps.
 
 1. Download or checkout the source files of this project.
-2. Enter the proper URL of your triple store server and repository name in the file "lib/sesameAdapter.rb".
+2. Enter the proper URL of your triple store server and repository name in the file `lib/sesameAdapter.rb`.
 3. Set up the Web application by following the provider's instructions (for Heroku, see [here](http://docs.heroku.com/quickstart)).
 
 The *Mobile Context Server* should now be ready. See step 3 for customization.
@@ -38,10 +38,6 @@ The *Mobile Context Server* should now be ready. See step 3 for customization.
 #### 3. Customization ####
 
 To add or modify context information, you can simply edit the ontology hosted by the triple store. I recommended the [Protégé Ontology Editor](http://protege.stanford.edu) for editing the OWL file. Examples for adding contexts are shown in [this YouTube video](http://www.youtube.com/watch?v=Bx2nH0Z9hPc).
-
-### API documentation ###
-
-coming soon...
 
 
 Copyright (c) 2010 Felix Mueller, released under the [MIT license](http://github.com/flxmllr/mobile-context-server/blob/master/MIT-LICENSE)
