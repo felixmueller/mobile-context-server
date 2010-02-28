@@ -40,4 +40,5 @@ The *Mobile Context Server* should now be ready. See step 3 for customization.
 To add or modify context information, you can simply edit the ontology hosted by the triple store. I recommended the [Protégé Ontology Editor](http://protege.stanford.edu) for editing the OWL file. Examples for adding contexts are shown in [this YouTube video](http://www.youtube.com/watch?v=Bx2nH0Z9hPc).
 
 
+
 Copyright (c) 2010 Felix Mueller, released under the [MIT license](http://github.com/flxmllr/mobile-context-server/blob/master/MIT-LICENSE)
